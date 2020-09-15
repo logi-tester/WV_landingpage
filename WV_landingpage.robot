@@ -5,7 +5,6 @@ Library           String
 Library           DateTime
 
 *** Variables ***
-${baseurl}        https://uat.worldvision.in/landingPages/child/index.html
 ${browser}        chrome
 
 *** Test Cases ***
