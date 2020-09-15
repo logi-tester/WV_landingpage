@@ -93,9 +93,9 @@ Select child in landingpage 3
     ${get_child_img_src}=    Get Element Attribute    xpath=.//div[@class='owl-item active']//img    src
     ${get_child_name}=    Get Text    xpath=.//div[@class='owl-item active']//div[@class='sliderNameTag']/h4
     ${get_val}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']/p/span[1])[2]
-    Log To Console    Selected Child name in landing page 2:${get_child_name}
-    Log To Console    Selected Child img src in landing page 2:${get_child_img_chsrc}
-    Log To Console    Selected Child amount in landing page 2:${get_val}
+    Log To Console    Selected Child name in landing page 3:${get_child_name}
+    Log To Console    Selected Child img src in landing page 3:${get_child_img_src}
+    Log To Console    Selected Child amount in landing page 3:${get_val}
     Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
