@@ -10,32 +10,34 @@ ${browser}        chrome
 
 *** Test Cases ***
 Landing page 1
-	Jenkins browser launch
+    Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage
     Select child in landingpage
     Landing singin
     CCavenue payment success flow
 
-Landing page 2
-	Jenkins browser launch
+Landing page 3
+    Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index-3.html		
     #Local browser launch landingpage
-    Select child in landingpage 2
+    Select child in landingpage 3
     Landing singin
     CCavenue payment success flow
 	
 *** Keywords ***
 Jenkins browser launch
+    [Arguments]    ${url}
     Set Selenium Speed    1s
     ${chrome_options} =    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${chrome_options}    add_argument    headless
     Call Method    ${chrome_options}    add_argument    disable-gpu
     Call Method    ${chrome_options}    add_argument    no-sandbox
     Create WebDriver    Chrome    chrome_options=${chrome_options}
-    Go To    ${baseurl}
+    Go To    ${url}
     Maximize Browser Window
     Set Browser Implicit Wait    15s
 
 Local browser launch landingpage
+    [Arguments]    ${baseurl}    ${browser}
     Set Selenium Speed    .5s
     Open Browser    ${baseurl}    ${browser}
     Maximize Browser Window
@@ -87,7 +89,7 @@ Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
 
-Select child in landingpage 2
+Select child in landingpage 3
     Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
     ${get_child_img_src}=    Get Element Attribute    xpath=.//div[@class='owl-item active']//img    src
     ${get_child_name}=    Get Text    xpath=.//div[@class='owl-item active']//div[@class='sliderNameTag']/h4
@@ -105,5 +107,4 @@ Landing singin
     Input Text    id=email    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
-
 
