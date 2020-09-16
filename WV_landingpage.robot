@@ -1,11 +1,14 @@
 *** Settings ***
 Test Teardown     Close Browser
 Library           SeleniumLibrary
-Library           String
-Library           DateTime
+
+
 
 *** Variables ***
 ${browser}        chrome
+@{checkout_payment_list_text}    Powered by CC Avenue    Powered by AXIS BANK    POWERED BY HDFC BANK
+@{SI_payment_list_text}    NET BANKING    Indian credit card    Debit card
+@{checkout_payment_list_ind_passport}    Debit Card/Net banking/Wallets/Amex    Amazon Pay    International credit card    Indian credit cards    Offline Payment
 
 *** Test Cases ***
 Landing page 1
