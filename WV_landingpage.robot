@@ -12,6 +12,7 @@ Landing page 1
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
+    Capture Page Screenshot
     Landing singin
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
@@ -20,6 +21,7 @@ Landing page 2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select child in landingpage 2
+    Capture Page Screenshot
     Landing2 singin
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
@@ -32,6 +34,7 @@ Landing page 3
     Log To Console    Total val is:${total_val}
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Capture Page Screenshot
     Landing singin
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
