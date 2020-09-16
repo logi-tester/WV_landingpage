@@ -22,6 +22,7 @@ Landing page 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Log To Console    Total val is:${total_val}
     Run Keyword If    '${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     Landing singin
     CCavenue payment success flow
 	
@@ -99,13 +100,12 @@ Select child in landingpage 3
     Log To Console    Selected Child name in landing page 3:${get_child_name}
     Log To Console    Selected Child img src in landing page 3:${get_child_img_src}
     Log To Console    Selected Child amount in landing page 3:${get_val}
-    Click Element    xpath=.//label[@for='allowAutoDebit']
-    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//label[@for='allowAutoDebit']    
     [Return]    ${get_val}
     
 Landing singin
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    id=emailcheck    kumaran@xerago.com
     Input Text    id=pwd    test
