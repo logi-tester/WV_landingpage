@@ -105,8 +105,7 @@ Select child in landingpage
     Log To Console    Child amount:${get_val}
     Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='donatenowbtn text-right']/a[contains(.,'SPONSOR NOW')]
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+   
 
 Select child in landingpage 2
     Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
