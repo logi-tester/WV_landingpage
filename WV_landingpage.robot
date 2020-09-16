@@ -10,20 +10,30 @@ ${browser}        chrome
 *** Test Cases ***
 Landing page 1
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index.html
-    #Local browser launch landingpage
+    #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
     Landing singin
+    Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
+Landing page 2
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select child in landingpage 2
+    Landing2 singin
+    Payment gateway list size and text for indian passport holder
+    CCavenue payment success flow
+    
 Landing page 3
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index-3.html		
-    #Local browser launch landingpage
+    #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Log To Console    Total val is:${total_val}
     Run Keyword If    '${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     Landing singin
+    Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 	
 *** Keywords ***
@@ -35,7 +45,7 @@ Jenkins browser launch
     Call Method    ${chrome_options}    add_argument    disable-gpu
     Call Method    ${chrome_options}    add_argument    no-sandbox
     Create WebDriver    Chrome    chrome_options=${chrome_options}
-    Set Window Size    1920    1080
+    Set Window Size    1366    768
     Go To    ${url}
     Set Browser Implicit Wait    15s
 
@@ -92,6 +102,19 @@ Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
 
+Select child in landingpage 2
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
+    ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[2]    src
+    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[2]
+    ${get_def_val}=    Get Element Attribute    xpath=.//span[@class='irs-grid-text js-grid-text-0']/span    value
+    Log To Console    Selected Child name in landing page 2:${get_child_name}
+    Log To Console    Selected Child img src in landing page 2:${get_child_img_src}
+    Log To Console    Selected Child default amount in landing page 2:${get_def_val}
+    ${get_input_val}=    Get Element Attribute    xpath=.//input[@name='directPayment']    value
+    Run Keyword If    '${get_def_val}'!='${get_input_val}'    Fail    "Default '800' amount and input displayed amount are different"
+    Click Element    xpath=.//label[@for='allowAutoDebit']
+    Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'SPONSOR NOW')]
+    
 Select child in landingpage 3
     Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
     ${get_child_img_src}=    Get Element Attribute    xpath=.//div[@class='owl-item active']//img    src
@@ -111,3 +134,22 @@ Landing singin
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
+Landing2 singin
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Input Text    id=email    kumaran@xerago.com
+    Input Text    id=pwd    test
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+    
+Payment gateway list size and text for indian passport holder
+    ${checkout_payment_list}=    Get Element Count    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div
+    Run Keyword If    5!=${checkout_payment_list}    Fail    "Checkout flow Indian passport holder payment list are mismatch"
+    FOR    ${bank_txt}    IN    @{checkout_payment_list_text}
+        ${checkout_banklist_name_check}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div/span[contains(.,'${bank_txt}')]
+        Run Keyword If    'True'!='${checkout_banklist_name_check}'    Fail    'Checkout Flow Indian passport holder Payment Gateway Powered by ${bank_txt} text is mismatch'
+    END
+    FOR    ${checkout_bank_txt}    IN    @{checkout_payment_list_ind_passport}
+        ${checkout_banklist_name_check}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div/label[contains(.,'${checkout_bank_txt}')]
+        Run Keyword If    'True'!='${checkout_banklist_name_check}'    Fail    'Checkout Flow Indian passport holder Payment Gateway ${bank_txt} text is mismatch'
+    END
