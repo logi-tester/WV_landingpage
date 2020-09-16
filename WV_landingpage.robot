@@ -18,7 +18,9 @@ Landing page 1
 Landing page 3
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index-3.html		
     #Local browser launch landingpage
-    Select child in landingpage 3
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Landing singin
     CCavenue payment success flow
 	
@@ -100,7 +102,7 @@ Select child in landingpage 3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
-
+    [Return]    ${get_val}
 Landing singin
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    id=emailcheck    kumaran@xerago.com
