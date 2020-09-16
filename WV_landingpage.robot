@@ -103,6 +103,7 @@ Select child in landingpage 3
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     [Return]    ${get_val}
+    
 Landing singin
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    id=emailcheck    kumaran@xerago.com
