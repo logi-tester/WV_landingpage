@@ -148,6 +148,7 @@ Landing2 singin
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     
 Payment gateway list size and text for indian passport holder
+    Capture Page Screenshot
     ${checkout_payment_list}=    Get Element Count    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div
     Run Keyword If    5!=${checkout_payment_list}    Fail    "Checkout flow Indian passport holder payment list are mismatch"
     FOR    ${bank_txt}    IN    @{checkout_payment_list_text}
