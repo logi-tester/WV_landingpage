@@ -103,7 +103,7 @@ Select child in landingpage 3
 
 Landing singin
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=email    kumaran@xerago.com
+    Input Text    id=emailcheck    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
