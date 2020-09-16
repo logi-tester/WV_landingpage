@@ -20,6 +20,7 @@ Landing page 3
     #Local browser launch landingpage
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Log To Console    Total val is:${total_val}
     Run Keyword If    '${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Landing singin
     CCavenue payment success flow
