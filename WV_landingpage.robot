@@ -11,7 +11,13 @@ ${browser}        chrome
 @{checkout_payment_list_ind_passport}    Debit Card/Net banking/Wallets/Amex    Amazon Pay    International credit card    Indian credit cards    Offline Payment
 
 *** Test Cases ***
-Landing page 1
+
+Landing page1 ensure child and default amount display or not
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    check default amt and child in page1
+    
+Landing page 1 select child and payment success
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -20,7 +26,12 @@ Landing page 1
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
-Landing page 2
+Landing page2 ensure child and default amount display or not
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    check default amt and child in page2
+    
+Landing page 2 select child and payment success
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select child in landingpage 2
@@ -29,7 +40,7 @@ Landing page 2
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
     
-Landing page 3
+Landing page 3 select child and payment success
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index-3.html		
     #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
@@ -160,3 +171,34 @@ Payment gateway list size and text for indian passport holder
         ${checkout_banklist_name_check}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div/label[contains(.,'${checkout_bank_txt}')]
         Run Keyword If    'True'!='${checkout_banklist_name_check}'    Fail    'Checkout Flow Indian passport holder Payment Gateway ${bank_txt} text is mismatch'
     END
+
+check default amt and child in page1
+    Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
+    ${chck_default_amt_sel}=    Get Element Attribute    xpath=(.//div[@id='mqhy']/div/input)[1]    checked
+    Log To Console    Atrribute val is:${chck_default_amt_sel}
+    Run Keyword If    'true'!='${chck_default_amt_sel}'    Fail    "By default '800' amount not in selected mode"
+    ${get_child_count}=    Get Element Count    xpath=.//div[@class='owl-stage']/div[@class='owl-item active' and @class='owl-item active']
+    Run Keyword If    ${get_child_count}<0    Fail    "Child not display in slider section"
+    ${chck_bf_allow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
+    Run Keyword If    'True'!='${chck_bf_allow_btn}'    Fail    "By default 'Allow auto debit' button not clicked"
+    ${procced_btn_txt}=    Get Text    xpath=(.//div[@class='donatenowbtn text-right']/a)[2]
+    Run Keyword If    'PROCEED TO AUTO DEBIT'!='${procced_btn_txt}'    Fail    "When 'Auto auto debit' is checked 'Proceed to auto debit' text is not display"
+    Click Element    xpath=.//label[@for='allowAutoDebit']
+    ${chck_af_alllow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
+    Run Keyword If    'False'!='${chck_af_alllow_btn}'    Fail    "After clicked 'Allow auto debit', button not change into uncheck"
+    ${sponsor_btn_txt}=    Get Text    xpath=(.//div[@class='donatenowbtn text-right']/a)[1]
+    Run Keyword If    'SPONSOR NOW'!='${sponsor_btn_txt}'    Fail    "When 'Auto auto debit' is unchecked 'Sponsor Now' text is not display"
+
+check default amt and child in page2
+    Scroll Element Into View    xpath=.//div[@class='owl-stage']
+    ${get_child_count}=    Get Element Count    xpath=.//div[@class='owl-stage']/div[@class='owl-item active' and @class='owl-item']
+    Run Keyword If    ${get_child_count}<0    Fail    "Child not display in slider section"
+    ${chck_bf_allow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
+    Run Keyword If    'True'!='${chck_bf_allow_btn}'    Fail    "By default 'Allow auto debit' button not clicked"
+    ${procced_btn_txt}=    Get Text    xpath=(.//div[@class='col-sm-4 textRight pn']/a)[2]
+    Run Keyword If    'PROCEED TO AUTO DEBIT'!='${procced_btn_txt}'    Fail    "When 'Auto auto debit' is checked 'Proceed to auto debit' text is not display"
+    Click Element    xpath=.//label[@for='allowAutoDebit']
+    ${chck_af_alllow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
+    Run Keyword If    'False'!='${chck_af_alllow_btn}'    Fail    "After clicked 'Allow auto debit', button not change into uncheck"
+    ${sponsor_btn_txt}=    Get Text    xpath=(.//div[@class='col-sm-4 textRight pn']/a)[1]
+    Run Keyword If    'SPONSOR NOW'!='${sponsor_btn_txt}'    Fail    "When 'Auto auto debit' is unchecked 'Sponsor Now' text is not display"
