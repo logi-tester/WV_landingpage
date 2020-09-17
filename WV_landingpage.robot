@@ -151,7 +151,7 @@ Payment gateway list size and text for indian passport holder
     Sleep    10s
     Capture Page Screenshot
     ${checkout_payment_list}=    Get Element Count    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div
-    Run Keyword If    5!=${checkout_payment_list}   Sleep    5s Fail    "Checkout flow Indian passport holder payment list are mismatch"
+    Run Keyword If    5!=${checkout_payment_list}    Fail    "Checkout flow Indian passport holder payment list are mismatch"
     FOR    ${bank_txt}    IN    @{checkout_payment_list_text}
         ${checkout_banklist_name_check}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='block-paymentmode']//div[@id='edit-payment-information-payment-method']/div/span[contains(.,'${bank_txt}')]
         Run Keyword If    'True'!='${checkout_banklist_name_check}'    Fail    'Checkout Flow Indian passport holder Payment Gateway Powered by ${bank_txt} text is mismatch'
