@@ -194,7 +194,7 @@ check default amt and child in page1
 check default amt and child in page2
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
     ${get_child_count}=    Get Element Count    xpath=.//div[@class='owl-stage']/div[@class='owl-item active' and @class='owl-item']
-    Run Keyword If    ${get_child_count}<0    Fail    "Child not display in slider section"
+    Run Keyword If    ${get_child_count}<1    Fail    "Child not display in slider section"
     ${chck_bf_allow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
     Run Keyword If    'True'!='${chck_bf_allow_btn}'    Fail    "By default 'Allow auto debit' button not clicked"
     ${procced_btn_txt}=    Get Text    xpath=(.//div[@class='col-sm-4 textRight pn']/a)[2]
