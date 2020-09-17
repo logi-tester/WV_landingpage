@@ -135,7 +135,7 @@ Landing singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=emailcheck    kumaran@xerago.com
+    Input Text    id=email    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
