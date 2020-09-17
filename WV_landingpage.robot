@@ -106,6 +106,7 @@ CCAvenue payment failure flow
     Run Keyword If    'PAYMENT FAILED'!='${payment_success_msg}'    Fail    "Payment Failure page not display"
 
 Select child in landingpage
+    Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
     Click Element    xpath=(.//div[@class='owl-item active'])[2]
     Click Element    xpath=(.//div[@id='mqhy']/div)[2]
     ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[2]//label/div[@class='sliderNameTag']/b
@@ -119,6 +120,7 @@ Select child in landingpage
    
 
 Select child in landingpage 2
+    Scroll Element Into View    xpath=.//div[@class='owl-stage']
     Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
     ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[2]    src
     ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[2]
