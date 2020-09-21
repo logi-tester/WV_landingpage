@@ -137,7 +137,7 @@ CCAvenue payment failure flow
 
 Select child in landingpage
     Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
-    Click Element    xpath=(.//div[@class='owl-item active'])[2]
+    Click Element    xpath=(.//div[@class='owl-item active'])[1]
     Click Element    xpath=(.//div[@id='mqhy']/div)[2]
     ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[2]//label/div[@class='sliderNameTag']/b
     ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[2]//label/img    src
@@ -150,7 +150,7 @@ Select child in landingpage
    
 Select child in landingpage1 using SI flow
     Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
-    Click Element    xpath=(.//div[@class='owl-item active'])[2]
+    Click Element    xpath=(.//div[@class='owl-item active'])[1]
     Click Element    xpath=(.//div[@id='mqhy']/div)[2]
     ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[2]//label/div[@class='sliderNameTag']/b
     ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[2]//label/img    src
@@ -162,7 +162,7 @@ Select child in landingpage1 using SI flow
 
 Select child in landingpage 2
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
-    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[1]
     ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[2]    src
     ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[2]
     ${get_def_val}=    Get Element Attribute    xpath=.//span[@class='irs-grid-text js-grid-text-0']/span    value
@@ -176,7 +176,7 @@ Select child in landingpage 2
 
 Select child in landingpage2 using SI flow
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
-    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[1]
     ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[2]    src
     ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[2]
     ${get_def_val}=    Get Element Attribute    xpath=.//span[@class='irs-grid-text js-grid-text-0']/span    value
@@ -260,7 +260,7 @@ check default amt and child in page1
     Log To Console    Atrribute val is:${chck_default_amt_sel}
     Run Keyword If    'true'!='${chck_default_amt_sel}'    Fail    "By default '800' amount not in selected mode"
     ${get_child_count}=    Get Element Count    xpath=.//div[@class='selectchildslider owl-carousel owl-theme owl-loaded owl-drag']//div[@class='owl-stage']/div[@class='owl-item active']
-    Run Keyword If    ${get_child_count}<1    Fail    "Child not display in slider section"
+    Run Keyword If    ${get_child_count}<0    Fail    "Child not display in slider section"
     ${chck_bf_allow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
     Run Keyword If    'True'!='${chck_bf_allow_btn}'    Fail    "By default 'Allow auto debit' button not clicked"
     ${procced_btn_txt}=    Get Text    xpath=(.//div[@class='donatenowbtn text-right']/a)[2]
@@ -274,7 +274,7 @@ check default amt and child in page1
 check default amt and child in page2
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
     ${get_child_count}=    Get Element Count    xpath=.//div[@class='owl-stage']/div[@class='owl-item active' and @class='owl-item']
-    Run Keyword If    ${get_child_count}<1    Fail    "Child not display in slider section"
+    Run Keyword If    ${get_child_count}<0    Fail    "Child not display in slider section"
     ${chck_bf_allow_btn}=    Execute Javascript    return window.jQuery('#allowAutoDebit').prop('checked')
     Run Keyword If    'True'!='${chck_bf_allow_btn}'    Fail    "By default 'Allow auto debit' button not clicked"
     ${procced_btn_txt}=    Get Text    xpath=(.//div[@class='col-sm-4 textRight pn']/a)[2]
