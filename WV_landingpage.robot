@@ -9,7 +9,9 @@ ${browser}        chrome
 @{checkout_payment_list_text}    Powered by CC Avenue    Powered by AXIS BANK    POWERED BY HDFC BANK
 @{SI_payment_list_text}    NET BANKING    Indian credit card    Debit card
 @{checkout_payment_list_ind_passport}    Debit Card/Net banking/Wallets/Amex    Amazon Pay    International credit card    Indian credit cards    Offline Payment
-
+${cash_covid19}    4500
+${dry_ration}     1200
+${hygiene_kit}    400
 *** Test Cases ***
 
 Landing page1 ensure child and default amount display or not
@@ -17,9 +19,17 @@ Landing page1 ensure child and default amount display or not
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     check default amt and child in page1
     
-Landing page 1 select child and payment success
-    Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index.html
-    #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+Landing page 1 select child using SI flow
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage1 using SI flow
+    Capture Page Screenshot
+    Landing singin
+    Payment gateway list size and text for SI flow
+
+Landing page 1 select child and payment success in Checkout flow
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
     Capture Page Screenshot
     Landing singin
@@ -31,7 +41,7 @@ Landing page2 ensure child and default amount display or not
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     check default amt and child in page2
     
-Landing page 2 select child and payment success
+Landing page 2 select child and payment success in Checkout flow
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select child in landingpage 2
@@ -39,6 +49,26 @@ Landing page 2 select child and payment success
     Landing2 singin
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
+
+Landing page 2 select child using SI flow
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select child in landingpage2 using SI flow
+    Capture Page Screenshot
+    Landing2 singin
+    Payment gateway list size and text for SI flow
+
+Landing page2 Onetime donation
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Onetime donation
+    Landing2 singin
+    Payment gateway list size and text for indian passport holder
+
+Landing page2 select multiple child and payment success in Checkout flow
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select multi child in landingpage2 using checkout page
     
 Landing page 3 select child and payment success
     Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index-3.html		
@@ -118,6 +148,17 @@ Select child in landingpage
     Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='donatenowbtn text-right']/a[contains(.,'SPONSOR NOW')]
    
+Select child in landingpage1 using SI flow
+    Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
+    Click Element    xpath=(.//div[@class='owl-item active'])[2]
+    Click Element    xpath=(.//div[@id='mqhy']/div)[2]
+    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[2]//label/div[@class='sliderNameTag']/b
+    ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[2]//label/img    src
+    ${get_val}=    Get Element Attribute    xpath=(.//div[@id='mqhy']/div)[2]/input    value
+    Log To Console    Child name:${get_child_name}
+    Log To Console    Child img src:${get_child_img_chsrc}
+    Log To Console    Child amount:${get_val}
+    Click Element    xpath=.//div[@class='donatenowbtn text-right']/a[contains(.,'PROCEED TO AUTO DEBIT')]
 
 Select child in landingpage 2
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
@@ -132,6 +173,35 @@ Select child in landingpage 2
     Run Keyword If    '${get_def_val}'!='${get_input_val}'    Fail    "Default '800' amount and input displayed amount are different"
     Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'SPONSOR NOW')]
+
+Select child in landingpage2 using SI flow
+    Scroll Element Into View    xpath=.//div[@class='owl-stage']
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
+    ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[2]    src
+    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[2]
+    ${get_def_val}=    Get Element Attribute    xpath=.//span[@class='irs-grid-text js-grid-text-0']/span    value
+    Log To Console    Selected Child name in landing page using SI flow:${get_child_name}
+    Log To Console    Selected Child img src in landing page using SI flow:${get_child_img_src}
+    Log To Console    Selected Child default amount in landing page using SI flow:${get_def_val}
+    ${get_input_val}=    Get Element Attribute    xpath=.//input[@name='directPayment']    value
+    Run Keyword If    '${get_def_val}'!='${get_input_val}'    Fail    "Default '800' amount and input displayed amount are different"
+    Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'PROCEED TO AUTO DEBIT')]
+
+Onetime donation
+    Click Element    xpath=.//span[@class='toggle-handle btn btn-default btn-xs']
+    Input Text    xpath=.//input[@name='directPayment']    1000
+    Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'DONATE NOW')]
+
+Select multi child in landingpage2 using checkout page
+    Scroll Element Into View    xpath=.//div[@class='owl-stage']
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[1]
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[2]
+    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[3]
+    ${get_def_val}=    Get Element Attribute    xpath=.//span[@class='irs-grid-text js-grid-text-0']/span    value
+    ${get_input_val}=    Get Element Attribute    xpath=.//input[@name='directPayment']    value
+    ${get_total_val_}=    Evaluate    ${get_def_val}*3
+    Log To Console    3 child totoal amt is:${get_total_val_}
+    Run Keyword If    ${get_input_val}!=${get_total_val_}    Fail    "Select 3 child total amount is differ"
     
 Select child in landingpage 3
     Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
@@ -159,6 +229,16 @@ Landing2 singin
     Input Text    id=email    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+ 
+Payment gateway list size and text for SI flow
+    Sleep    5s
+    Capture Page Screenshot
+    ${SI_payment_list}=    Get Element Count    xpath=.//div[@class='payment-main-content']/div
+    Run Keyword If    3!=${SI_payment_list}    Fail    "SI Flow payment gateway list mismatch"
+    FOR    ${SI_payment_txt}    IN    @{SI_payment_list_text}
+        ${SI_payment_txt_chck}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='payment-main-content']/div[contains(.,'${SI_payment_txt}')]
+        Run Keyword If    'True'!='${SI_payment_txt_chck}'    Fail    "SI flow payment gateway ${SI_payment_txt} text are mismatch"
+    END
     
 Payment gateway list size and text for indian passport holder
     Sleep    10s
