@@ -70,18 +70,85 @@ Landing page2 select multiple child and payment success in Checkout flow
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select multi child in landingpage2 using checkout page
     
-Landing page 3 select child and payment success
-    Jenkins browser launch	https://uat.worldvision.in/landingPages/child/index-3.html		
-    #Local browser launch landingpage	https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+Landing page3 ensure child and default amount display or not
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    ${chck_list_display}=    Get Element Count    xpath=.//div[@class='owl-item active']
+    Run Keyword If    ${chck_list_display}<0    Fail    "In Landing page3 child is not display"
+    ${Check_default_allow_btn_uncheck}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Run Keyword If    'True'!='${Check_default_allow_btn_uncheck}'    Fail    "By default 'Donate Now' button not display"
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    ${chck_default_val_checked}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='round']/label)[1]    class
+    Run Keyword If    'active'!='${chck_default_val_checked}'    Fail    "Landing page3 in Child section default amount '800' not checked"
+
+Landing page 3 select child and payment success in Checkout flow
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Log To Console    Total val is:${total_val}
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    #Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     Capture Page Screenshot
     Landing singin
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
+
+Landing page3 select child using SI Flow
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//label[@for='allowAutoDebit']
+    ${chck_covid_section_clickable}=    Run Keyword And Return Status    Click Element    id=cash2
+    Run Keyword If    True==${chck_covid_section_clickable}    Fail    "When select child try to make payment using SI flow but Covid section is in enable mode"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'PROCEED TO AUTO DEBIT')]
+    Capture Page Screenshot
+    Landing singin
+    Payment gateway list size and text for SI flow
+
+Landing page3 select dropdown val
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    Select From List By Value    id=cash2    ${hygiene_kit}
+    Select From List By Value    id=cash3    ${cash_covid19}
+    Select From List By Value    id=cash4    ${dry_ration}
+    Input Text    id=email1    ${general_donation_covid19}
+    ${get_total_val_dropdown}=    Evaluate    ${cash_covid19}+${dry_ration}+${hygiene_kit}+${general_donation_covid19}
+    ${total_display_val}=    Get Text    xpath=.//span[@id='total']/b
+    ${remove_comma_symbol}=    Remove symbol    ${total_display_val}    ,
+    Run Keyword If    ${get_total_val_dropdown}!=${remove_comma_symbol}    Fail    "Drop down total value and overall total amount is differ"
+    Click Element    xpath=.//span[@class='slider round']
+    ${chck_child_diable}=    Get Element Attribute    id=childimg    class
+    Run Keyword If    'childimagedis'!='${chck_child_diable}'    Fail    "Child section not disable when click 'Add Child Sponsorship'
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing3 singin
+    Payment gateway list size and text for indian passport holder
+    CCavenue payment success flow
+
+Landing page3 select dropdown val and child
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    Select From List By Value    id=cash2    ${hygiene_kit}
+    Select From List By Value    id=cash3    ${cash_covid19}
+    Select From List By Value    id=cash4    ${dry_ration}
+    Input Text    id=email1    ${general_donation_covid19}
+    ${get_total_val_dropdown}=    Evaluate    ${cash_covid19}+${dry_ration}+${hygiene_kit}+${general_donation_covid19}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${remove_symbol}=    Remove String    ${get_sel_child_val}    ₹
+    ${child_and_dropdown_val}=    Evaluate    ${get_total_val_dropdown}+${remove_symbol}
+    ${total_display_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    ${total_display_val}!=${child_and_dropdown_val}    Fail    "Drop down total value + selected child amount are differ in total amount"
+    #Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    #Landing3 singin
+    #Payment gateway list size and text for indian passport holder
+    #CCavenue payment success flow
 	
 *** Keywords ***
 Jenkins browser launch
@@ -284,3 +351,8 @@ check default amt and child in page2
     Run Keyword If    'False'!='${chck_af_alllow_btn}'    Fail    "After clicked 'Allow auto debit', button not change into uncheck"
     ${sponsor_btn_txt}=    Get Text    xpath=(.//div[@class='col-sm-4 textRight pn']/a)[1]
     Run Keyword If    'SPONSOR NOW'!='${sponsor_btn_txt}'    Fail    "When 'Auto auto debit' is unchecked 'Sponsor Now' text is not display"
+
+Remove symbol
+    [Arguments]    ${val}    ${sysmbol}
+    ${output}=    Remove String    ${val}    ${sysmbol}
+    [Return]    ${output}
