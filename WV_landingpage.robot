@@ -12,8 +12,24 @@ ${browser}        chrome
 ${cash_covid19}    4500
 ${dry_ration}     1200
 ${hygiene_kit}    400
+${general_donation_covid19}    1000
 *** Test Cases ***
+To Verify User should login with Valid Credentials
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Landing1 singin    Fin.felix@gmail.com    mega@123
+    ${chck_payment_page}=    Run Keyword And Return Status    Element Should Be Visible    id=block-paymentmode
+    Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
 
+To Verify User should login with Invalid credentials
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Landing1 singin    jfvfdjf@gds.asdas    123456
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
+    
 Landing page1 ensure child and default amount display or not
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
@@ -36,6 +52,14 @@ Landing page 1 select child and payment success in Checkout flow
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
+Donate through One Time Donation Payment flow
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    Onetime donation    1000
+    Landing1 singin    logimohan@gmail.com    logi
+    Payment gateway list size and text for indian passport holder
+    CCavenue payment success flow
+    
 Landing page2 ensure child and default amount display or not
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -65,6 +89,14 @@ Landing page2 Onetime donation
     Landing2 singin
     Payment gateway list size and text for indian passport holder
 
+To verify OTD should not accept Si
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Onetime donation    1000
+    Landingpage2 singin    Fin.felix@gmail.com    mega@123
+    ${chck_SI_payment_sec}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='payment-mode si-pop-4 tab-pane step-content']
+    Run Keyword If    'True'=='${chck_SI_payment_sec}'    Fail    "Select Onetime donation but payment gateway display like SI"
+    
 Landing page2 select multiple child and payment success in Checkout flow
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -255,8 +287,9 @@ Select child in landingpage2 using SI flow
     Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'PROCEED TO AUTO DEBIT')]
 
 Onetime donation
+	[Arguments]    ${amt}
     Click Element    xpath=.//span[@class='toggle-handle btn btn-default btn-xs']
-    Input Text    xpath=.//input[@name='directPayment']    1000
+    Input Text    xpath=.//input[@name='directPayment']    ${amt}
     Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'DONATE NOW')]
 
 Select multi child in landingpage2 using checkout page
@@ -280,6 +313,15 @@ Select child in landingpage 3
     Log To Console    Selected Child amount in landing page 3:${get_val}
     Click Element    xpath=.//label[@for='allowAutoDebit']    
     [Return]    ${get_val}
+
+Landing1 singin
+    [Arguments]    ${username}    ${password}
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Input Text    id=email    ${username}
+    Input Text    id=pwd    ${password}
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     
 Landing singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
@@ -289,6 +331,15 @@ Landing singin
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
+Landingpage2 singin
+    [Arguments]    ${username}    ${password}
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Input Text    id=email    ${username}
+    Input Text    id=pwd    ${password}
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+    
 Landing2 singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
