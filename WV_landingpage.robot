@@ -17,13 +17,37 @@ ${onetime_donation_amt}    20000
 ${OTD_min_alert}    Minimum is ₹ 800.
 
 *** Test Cases ***
+To Verify user should login as Website Registered User
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Landing1 singin    Fin.felix@gmail.com    mega@123
+    ${chck_payment_page}=    Run Keyword And Return Status    Element Should Be Visible    id=block-paymentmode
+    Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
+
+To Verify User should reset the password with Unrecognized Username
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Onetime donation LP1    2000
+    Forgot password
+    password reset with Unrecognized data    dummy
+    password reset Unrecognized data alert    UnrecognizedUsername
+
+To Verify User should reset the password with Unrecognized email ID
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Forgot password
+    password reset with Unrecognized data    fgfdgddf@dfg.fddsf
+    password reset Unrecognized data alert    Unrecognized email ID
+    
 To verify support any child section amount is not adding with OTD
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Page scrolling
     Click Element    xpath=.//ul[@class='nav nav-tabs']//li[2]
     Number of Children
-    Onetime donation    ${onetime_donation_amt}
+    Onetime donation LP1    ${onetime_donation_amt}
     Landing1 singin    logimohan@gmail.com    logi
     #Checking payment gateway and amount
    
@@ -96,7 +120,7 @@ Landing page 1 select child and payment success in Checkout flow
 Donate RS 4000 through One Time Donation Payment flow
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
-    Onetime donation    4000
+    Onetime donation LP1    4000
     Landing1 singin    logimohan@gmail.com    logi
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
@@ -104,14 +128,14 @@ Donate RS 4000 through One Time Donation Payment flow
 To verify One time donation amount field validation
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
-    Onetime donation    100
+    Onetime donation LP1    100
     ${get_alert_msg}=    Get Text    id=directPaymentErr
     Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 100, but validation '${OTD_min_alert}' alert not display"
     Clear Element Text    xpath=.//input[@name='directPayment']
-    Onetime donation    799
+    Onetime donation LP1    799
     Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 799, but validation '${OTD_min_alert}' alert not display"
     Clear Element Text    xpath=.//input[@name='directPayment']
-    Onetime donation    800
+    Onetime donation LP1    800
     ${get_status_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=directPaymentErr
     Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
     #Need clarification for Max alert 
@@ -141,14 +165,14 @@ Landing page 2 select child using SI flow
 Landing page2 Onetime donation
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
-    Onetime donation
+    Onetime donation LP2    1000	
     Landing2 singin
     Payment gateway list size and text for indian passport holder
 
 To verify OTD should not accept Si
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
-    Onetime donation    1000
+    Onetime donation LP2    1000
     Landingpage2 singin    Fin.felix@gmail.com    mega@123
     ${chck_SI_payment_sec}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='payment-mode si-pop-4 tab-pane step-content']
     Run Keyword If    'True'=='${chck_SI_payment_sec}'    Fail    "Select Onetime donation but payment gateway display like SI"
@@ -342,8 +366,14 @@ Select child in landingpage2 using SI flow
     Run Keyword If    '${get_def_val}'!='${get_input_val}'    Fail    "Default '800' amount and input displayed amount are different"
     Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'PROCEED TO AUTO DEBIT')]
 
-Onetime donation
-	[Arguments]    ${amt}
+Onetime donation LP1
+    [Arguments]    ${amt}
+    Click Element    xpath=.//span[@class='toggle-handle btn btn-default btn-xs']
+    Input Text    xpath=.//input[@name='directPayment']    ${amt}
+    Click Element    xpath=.//div[@class='donatenowbtn text-right']//a[contains(.,'DONATE NOW')]
+
+Onetime donation LP2
+    [Arguments]    ${amt}
     Click Element    xpath=.//span[@class='toggle-handle btn btn-default btn-xs']
     Input Text    xpath=.//input[@name='directPayment']    ${amt}
     Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'DONATE NOW')]
@@ -378,6 +408,46 @@ Landing1 singin
     Input Text    id=email    ${username}
     Input Text    id=pwd    ${password}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+
+Forgot password
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Log To Console    Status:${display_reg}
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Click Element    xpath=.//a[@class='forgot-password']
+
+password reset with Unrecognized data
+    [Arguments]    ${dummy_Data}
+    Input Text    id=edit-name    ${dummy_Data}
+    Click Element    id=edit-submit
+
+password reset Unrecognized data alert
+    [Arguments]    ${unreg_username}
+    ${chck_alert_}=    Run Keyword And Return Status    Element Should Be Visible    xpath=(.//div[@class='form-item--error-message'])[2]
+    Run Keyword If    'True'!='${chck_alert_}'    Fail    "When enter '${unreg_username}', but alert not display"
+    Switch Window    title=Child Sponsorship    Close Window
+    
+Landing1 singin with email
+    [Arguments]    ${username}
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Input Text    id=email    ${username}
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+
+Landing1 singin with password
+    [Arguments]    ${password}
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Input Text    id=pwd    ${password}
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+
+Landing1 singin without credentials
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']  
     
 Landing singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
