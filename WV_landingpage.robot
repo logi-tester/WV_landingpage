@@ -13,7 +13,20 @@ ${cash_covid19}    4500
 ${dry_ration}     1200
 ${hygiene_kit}    400
 ${general_donation_covid19}    1000
+${onetime_donation_amt}    20000
+${OTD_min_alert}    Minimum is ₹ 800.
+
 *** Test Cases ***
+To verify support any child section amount is not adding with OTD
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Page scrolling
+    Click Element    xpath=.//ul[@class='nav nav-tabs']//li[2]
+    Number of Children
+    Onetime donation    ${onetime_donation_amt}
+    Landing1 singin    logimohan@gmail.com    logi
+    #Checking payment gateway and amount
+   
 To Verify User should login with Valid Credentials
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
@@ -29,6 +42,34 @@ To Verify User should login with Invalid credentials
     Landing1 singin    jfvfdjf@gds.asdas    123456
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
+    
+To Verify User should login with email id only
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Landing1 singin with email    jfvfdjf@gds.asdas
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
+
+To Verify user should login with Only Password
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Landing1 singin with password    xccvcxvv
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
+
+To Verify user should login without Credentials
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Select child in landingpage
+    Landing1 singin without credentials
+    #Check Email Alert
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Email id not entered, but alert not display"
+    #Check Password Alert
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
     
 Landing page1 ensure child and default amount display or not
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
@@ -52,13 +93,28 @@ Landing page 1 select child and payment success in Checkout flow
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
-Donate through One Time Donation Payment flow
-    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+Donate RS 4000 through One Time Donation Payment flow
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
-    Onetime donation    1000
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Onetime donation    4000
     Landing1 singin    logimohan@gmail.com    logi
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
+    
+To verify One time donation amount field validation
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Onetime donation    100
+    ${get_alert_msg}=    Get Text    id=directPaymentErr
+    Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 100, but validation '${OTD_min_alert}' alert not display"
+    Clear Element Text    xpath=.//input[@name='directPayment']
+    Onetime donation    799
+    Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 799, but validation '${OTD_min_alert}' alert not display"
+    Clear Element Text    xpath=.//input[@name='directPayment']
+    Onetime donation    800
+    ${get_status_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=directPaymentErr
+    Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
+    #Need clarification for Max alert 
     
 Landing page2 ensure child and default amount display or not
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
@@ -407,3 +463,47 @@ Remove symbol
     [Arguments]    ${val}    ${sysmbol}
     ${output}=    Remove String    ${val}    ${sysmbol}
     [Return]    ${output}
+
+Page scrolling
+    Sleep    3s
+    SeleniumLibrary.Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+
+Number of Children
+    ${A_MONTHY}=    Get Element Attribute    xpath=.//div[@id='mqhy']//div[1]//input    defaultValue
+    Should Be Equal    ${A_MONTHY}    ${E_MONTHY}
+    Log To Console    ${A_MONTHY}
+    ${A_QUARTERLY}=    Get Element Attribute    xpath=.//div[@id='mqhy']//div[2]//input    defaultValue
+    Should Be Equal    ${A_QUARTERLY}    ${E_QUARTERLY}
+    Log To Console    ${A_QUARTERLY}
+    ${A_HALF}=    Get Element Attribute    xpath=.//div[@id='mqhy']//div[3]//input    defaultValue
+    Should Be Equal    ${A_HALF}    ${E_HALF}
+    Log To Console    ${AHALF}
+    ${A_ANNUALLY}=    Get Element Attribute    xpath=.//div[@id='mqhy']//div[4]//input    defaultValue
+    Should Be Equal    ${A_ANNUALLY}    ${E_ANNUALLY}
+    Log To Console    ${A_ANNUALLY}
+    FOR    ${i}    IN RANGE    1    4
+        Sleep    3s
+        ${J}=    Evaluate    ${i} + 1
+        Log To Console    Number of children
+        Click Element    xpath=.//div[@id='sip_increase']
+        ${result}=    Evaluate    ${E_MONTHY} * ${J}
+        ${A_MONTHY}=    Get Element Attribute    xpath=.//div[@id='mqhy']//label[1]//span[1]    textContent
+        ${A_MONTHY}=    Convert To Integer    ${A_MONTHY}
+        Should Be Equal    ${result}    ${A_MONTHY}
+        Log To Console    ${A_MONTHY}
+        ${result}=    Evaluate    ${E_QUARTERLY} * ${J}
+        ${A_QUARTERLY}=    Get Element Attribute    xpath=.//div[@id='mqhy']//label[@for='r2']//span    textContent
+        ${A_QUARTERLY}=    Convert To Integer    ${A_QUARTERLY}
+        Should Be Equal    ${A_QUARTERLY}    ${result}
+        Log To Console    ${A_QUARTERLY}
+        ${result}=    Evaluate    ${E_HALF} * ${J}
+        ${A_HALF}=    Get Element Attribute    xpath=.//div[@id='mqhy']//label[@for='r3']//span    textContent
+        ${A_HALF}=    Convert To Integer    ${A_HALF}
+        Should Be Equal    ${A_HALF}    ${result}
+        Log To Console    ${A_HALF}
+        ${result}=    Evaluate    ${E_ANNUALLY} * ${J}
+        ${A_ANNUALLY}=    Get Element Attribute    xpath=.//div[@id='mqhy']//label[@for='r4']//span    textContent
+        ${A_ANNUALLY}=    Convert To Integer    ${A_ANNUALLY}
+        Should Be Equal    ${A_ANNUALLY}    ${result}
+        Log To Console    ${A_ANNUALLY}
+    END
