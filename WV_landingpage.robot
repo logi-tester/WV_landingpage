@@ -91,10 +91,11 @@ To Verify user should login without Credentials
     #Check Email Alert
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Email id not entered, but alert not display"
+    Input Text    name=email    sdfdsg
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     #Check Password Alert
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
-    Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
-    
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"    
 Landing page1 ensure child and default amount display or not
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
@@ -214,10 +215,12 @@ To Verify user should login without Credentials
     Landing1 singin without credentials
     #Check Email Alert
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
-    Run Keyword If    'True'!='${chck_alert}'    Fail    "Alert not display when Email id not entered"
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Email id not entered, but alert not display"
+    Input Text    name=email    sdfdsg
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     #Check Password Alert
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
-    Run Keyword If    'True'!='${chck_alert}'    Fail    "Alert not display when Password  not entered"
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
     
 Landing page 2 select child and payment success in Checkout flow
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
@@ -257,8 +260,8 @@ Landing page2 select multiple child and payment success in Checkout flow
     Select multi child in landingpage2 using checkout page
     
 Landing page3 ensure child and default amount display or not
-    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
-    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_list_display}=    Get Element Count    xpath=.//div[@class='owl-item active']
     Run Keyword If    ${chck_list_display}<0    Fail    "In Landing page3 child is not display"
     ${Check_default_allow_btn_uncheck}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
@@ -269,8 +272,8 @@ Landing page3 ensure child and default amount display or not
     Run Keyword If    'active'!='${chck_default_val_checked}'    Fail    "Landing page3 in Child section default amount '800' not checked"
 
 Landing page 3 select child and payment success in Checkout flow
-    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
-    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
@@ -282,8 +285,8 @@ Landing page 3 select child and payment success in Checkout flow
     CCavenue payment success flow
 
 Landing page3 select child using SI Flow
-    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
-    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
@@ -296,8 +299,8 @@ Landing page3 select child using SI Flow
     Payment gateway list size and text for SI flow
 
 Landing page3 select dropdown val
-    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
-    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
     Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
     Select From List By Value    id=cash2    ${hygiene_kit}
@@ -317,8 +320,8 @@ Landing page3 select dropdown val
     CCavenue payment success flow
 
 Landing page3 select dropdown val and child
-    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
-    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
     Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
     Select From List By Value    id=cash2    ${hygiene_kit}
@@ -336,6 +339,59 @@ Landing page3 select dropdown val and child
     #Payment gateway list size and text for indian passport holder
     #CCavenue payment success flow
 	
+To Verify User should login with Invalid credentials
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin    jfvfdjf@gds.asdas    123456
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
+
+To Verify user should login without Credentials
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin without credentials
+    #Check Email Alert
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Email id not entered, but alert not display"
+    Input Text    name=email    sdfdsg
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+    #Check Password Alert
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
+
+To Verify User should login with email id only
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin with email    jfvfdjf@gds.asdas
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
+
+To Verify user should login with Only Password
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin with password    jfvfdjf@gds.asdas
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
 *** Keywords ***
 Jenkins browser launch
     [Arguments]    ${url}
@@ -479,7 +535,7 @@ Landing1 singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=email    ${username}
+    Input Text    name=email    ${username}
     Input Text    id=pwd    ${password}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
@@ -506,7 +562,7 @@ Landing1 singin with email
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=email    ${username}
+    Input Text    name=email    ${username}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
 Landing1 singin with password
@@ -527,7 +583,7 @@ Landing singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=email    kumaran@xerago.com
+    Input Text    name=email    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
@@ -536,7 +592,7 @@ Landingpage2 singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=email    ${username}
+    Input Text    name=email    ${username}
     Input Text    id=pwd    ${password}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     
@@ -544,7 +600,7 @@ Landing2 singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    id=email    kumaran@xerago.com
+    Input Text    name=email    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
  
