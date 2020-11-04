@@ -145,6 +145,80 @@ Landing page2 ensure child and default amount display or not
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     check default amt and child in page2
     
+To Donate RS 3000 through One Time Donation
+    [Tags]    LP-2: Verify Donate thorugh One time donation
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Onetime donation LP2    3000
+    Landing1 singin    logimohan@gmail.com    logi
+    CCavenue payment success flow
+    #Payment cover in ccAvenue not offline(Paytm)
+
+To verify OTD flow should not lead to SI
+    [Tags]    LP-2: Verify Donate thorugh One time donation
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Onetime donation LP2    1000
+    Landingpage2 singin    Fin.felix@gmail.com    mega@123
+    ${chck_SI_payment_sec}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='payment-mode si-pop-4 tab-pane step-content']
+    Run Keyword If    'True'=='${chck_SI_payment_sec}'    Fail    "Select Onetime donation but payment gateway display like SI"
+
+To verify One time donation amount field validation
+    [Tags]    LP-2: Verify Donate thorugh One time donation
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Onetime donation LP2    100
+    ${get_alert_msg}=    Get Text    id=directPaymentErr
+    Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 100, but validation '${OTD_min_alert}' alert not display"
+    Clear Element Text    xpath=.//input[@name='directPayment']
+    Onetime donation LP1    799
+    Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 799, but validation '${OTD_min_alert}' alert not display"
+    Clear Element Text    xpath=.//input[@name='directPayment']
+    Onetime donation LP1    800
+    ${get_status_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=directPaymentErr
+    Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
+    #Need clarification for Max alert
+
+To Verify User should login with Invalid credentials
+    [Tags]    LP-2:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select child in landingpage 2
+    Landingpage2 singin    sdfhsdjf    1234
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
+
+To Verify User should login with email id only
+    [Tags]    LP-2:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select child in landingpage 2
+    Landing1 singin with email    jfvfdjf@gds.asdas
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
+
+To Verify user should login with Only Password
+    [Tags]    LP-2:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select child in landingpage 2
+    Landing1 singin with password    xccvcxvv
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
+
+To Verify user should login without Credentials
+    [Tags]    LP-2:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Select child in landingpage 2
+    Landing1 singin without credentials
+    #Check Email Alert
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Alert not display when Email id not entered"
+    #Check Password Alert
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Alert not display when Password  not entered"
+    
 Landing page 2 select child and payment success in Checkout flow
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
