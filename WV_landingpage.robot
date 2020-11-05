@@ -339,6 +339,199 @@ Landing page3 select dropdown val and child
     #Payment gateway list size and text for indian passport holder
     #CCavenue payment success flow
 	
+To donate for Hygiene Kit for Covid 19
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    Select From List By Value    id=cash2    ${hygiene_kit}
+    ${total_display_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    ${total_display_val}!=${hygiene_kit}    Fail    "Selet drop down value from 'Hygiene Kit for Covid 19' and total value are different"
+    Click Element    xpath=.//span[@class='slider round']
+    ${chck_dis_child_sec}=    Run Keyword And Return Status    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
+    Run Keyword If    'False'!='${chck_dis_child_sec}'    Fail    "Disable 'Add Child Sponsorship' section but Child section are in enable mode"
+    ${chck_dis_allow_auto_btn}=    Run Keyword And Return Status    Click Element    xpath=.//label[@for='allowAutoDebit']
+    Run Keyword If    'False'!='${chck_dis_allow_auto_btn}'    Fail    "Disable 'Add Child Sponsorship' section but 'Allow auto debit' are in enable mode"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin    logimohan@gmail.com    logi
+    #CCavenue payment success flow
+    #Ensure acknowledgement
+
+To donate for Cash Voucher for covid 19
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    Select From List By Value    id=cash3    ${cash_covid19}
+    ${total_display_val}=    Get Text    xpath=.//span[@id='total']/b
+    ${remove_comma_symbol_total_val}=    Remove symbol    ${total_display_val}    ,
+    Run Keyword If    ${remove_comma_symbol_total_val}!=${cash_covid19}    Fail    "Selet drop down value from 'Cash Voucher for covid 19' and total value are different"
+    Click Element    xpath=.//span[@class='slider round']
+    ${chck_dis_child_sec}=    Run Keyword And Return Status    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
+    Run Keyword If    'False'!='${chck_dis_child_sec}'    Fail    "Disable 'Add Child Sponsorship' section but Child section are in enable mode"
+    ${chck_dis_allow_auto_btn}=    Run Keyword And Return Status    Click Element    xpath=.//label[@for='allowAutoDebit']
+    Run Keyword If    'False'!='${chck_dis_allow_auto_btn}'    Fail    "Disable 'Add Child Sponsorship' section but 'Allow auto debit' are in enable mode"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin    logimohan@gmail.com    logi
+    #CCavenue payment success flow
+    #Ensure acknowledgement
+
+To donate for Dry ration for a family
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    Select From List By Value    id=cash4    ${dry_ration}
+    ${total_display_val}=    Get Text    xpath=.//span[@id='total']/b
+    ${remove_comma_symbol_total_val}=    Remove symbol    ${total_display_val}    ,
+    Run Keyword If    ${remove_comma_symbol_total_val}!=${dry_ration}    Fail    "Selet drop down value from 'Dry ration for a family' and total value are different"
+    Click Element    xpath=.//span[@class='slider round']
+    ${chck_dis_child_sec}=    Run Keyword And Return Status    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
+    Run Keyword If    'False'!='${chck_dis_child_sec}'    Fail    "Disable 'Add Child Sponsorship' section but Child section are in enable mode"
+    ${chck_dis_allow_auto_btn}=    Run Keyword And Return Status    Click Element    xpath=.//label[@for='allowAutoDebit']
+    Run Keyword If    'False'!='${chck_dis_allow_auto_btn}'    Fail    "Disable 'Add Child Sponsorship' section but 'Allow auto debit' are in enable mode"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin    logimohan@gmail.com    logi
+    #CCavenue payment success flow
+    #Ensure acknowledgement
+
+To Verify User should register account without Data
+    [Tags]    LP-3:Registration Functionallity
+    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    # Click Donate amount in    800 Monthly
+    Click Element    //div[@class='round']//label
+    # Select Allow auto debit check box
+    Click Element    //label[@for='allowAutoDebit']
+    # Click PROCEED TO AUTO DEBIT button
+    Click Element    //a[@class='btn btn-primary proceedtosi']
+    # Check Alert should display in all fields
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter your First name
+    ${Fname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpfnameErr']
+    Log To Console    Firstname Status:${Fname}
+    Run Keyword If    'True'!='${Fname}'    Fail    "Without entering First Name after the click Create New Account, ' FirstName' error message not display"
+    # Enter the FirstName
+    Input Text    (//input[@class='form-control alphabet_valid'])[1]    Test
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter your Last name
+    ${Lname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUplnameErr']
+    Log To Console    Lastname Status:${Lname}
+    Run Keyword If    'True'!='${Lname}'    Fail    "Enter the First Name after the click Create New Account, 'LastName' error message not display"
+    # Enter the LastName
+    Input Text    (//input[@class='form-control alphabet_valid'])[2]    testt
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter your Email
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
+    Log To Console    Email Status:${Email}
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter the Last Name after the click Create New Account, 'Email address' error message not display"
+    # Enter the Email ID
+    Input Text    (//input[@type='email'])[2]    test@gmail.com
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter your Phone number
+    ${Ph}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
+    Log To Console    Phone Status:${Ph}
+    Run Keyword If    'True'!='${Ph}'    Fail    "Enter the Email after the click Create New Account, 'Phone number' error message not display"
+    # Enter the Phone number
+    Input Text    (//input[@class='form-control'])[7]    9940613589
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the Confirm Password
+    ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
+    Log To Console    C-Password Status:${CPassword}
+    Run Keyword If    'True'!='${CPassword}'    Fail    "Enter the Phone Number after the click Create New Account, 'Confirm Password' error message not display"
+    # Enter the Confirm Password
+    Input Text    (//input[@type='password'])[1]    asdf
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the Re-Confirm Password
+    ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
+    Log To Console    RC-Password Status:${RCPassword}
+    Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter the Confirm Password after the click Create New Account, 'Re-Confirm Password' error message not display"
+    # Enter the Re-Confirm Password
+    Input Text    (//input[@type='password'])[2]    asdf
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the Address 1
+    ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
+    Log To Console    Address-1 Status:${Address-1}
+    Run Keyword If    'True'!='${Address-1}'    Fail    "Enter the Re-Confirm Password after the click Create New Account, 'Address 1' error message not display"
+    # Enter the Address 1
+    Input Text    (//input[@class='form-control'])[9]    Address1
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the Address 2
+    ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    Log To Console    Address-2 Status:${Address-2}
+    Run Keyword If    'True'!='${Address-2}'    Fail    "Enter the Address 1 after the click Create New Account, 'Address 2' error message not display"
+    # Enter the Address 2
+    Input Text    (//input[@class='form-control'])[10]    Address2
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the Postalcode
+    ${Postalcode}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPscodeErr']
+    Log To Console    Postalcode Status:${Postalcode}
+    Run Keyword If    'True'!='${Postalcode}'    Fail    "Enter the Address 2 after the click Create New Account, 'Postalcode' error message not display"
+    # Enter the Postalcode
+    Input Text    (//input[@class='form-control'])[11]    656545
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the City
+    ${City}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCityErr']
+    Log To Console    City Status:${City}
+    Run Keyword If    'True'!='${City}'    Fail    "Enter the Postalcode after the click Create New Account, 'City' error message not display"
+    # Enter the City
+    Input Text    (//input[@class='form-control'])[12]    assdg
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the State
+    ${state}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpStateErr']
+    Log To Console    State Status:${state}
+    Run Keyword If    'True'!='${state}'    Fail    "Enter the City after the click Create New Account, 'State' error message not display"
+    # Enter the State
+    Input Text    (//input[@class='form-control'])[13]    asdfg
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the Country
+    ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
+    Log To Console    Country Status:${Country}
+    Run Keyword If    'True'!='${Country}'    Fail    "Enter the State after the click Create New Account, 'Country' error message not display"
+    # Clear the postal Code
+    Clear Element Text    (//input[@class='form-c
+    ontrol'])[11]
+    # Enter the Postal code
+    Input Text    (//input[@class='form-control'])[11]    600095
+    Sleep    3s
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Required Message: Please enter the date of birth
+    ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
+    Log To Console    DOB Status:${DOB}
+    Run Keyword If    'True'!='${DOB}'    Fail    "Enter the Postalcode after the click Create New Account, 'DOB' error message not display"
+    # Select the Date of birth
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class="ui-datepicker-year"]    1990
+    Select From List By Value    //select[@class="ui-datepicker-month"]    6
+    Click Link    xpath=(//a[@href="#"])[30]
+    # Click create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
+    
+To Verify User should login with Valid Credentials
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Landing1 singin    logimohan@gmail.com    logi
+        ${login_success}=    Run Keyword And Return Status    Element Should Be Visible    id=block-checkoutpaymentprogress
+    Run Keyword If    'True'!='${login_success}'    Fail    "Enter valid credentials but not get into login success"
+    
 To Verify User should login with Invalid credentials
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
