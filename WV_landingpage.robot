@@ -17,7 +17,7 @@ ${onetime_donation_amt}    20000
 ${OTD_min_alert}    Minimum is ₹ 800.
 
 *** Test Cases ***
-To Verify user should login as Website Registered User
+To Verify user should login as Website Registered User LP1
     #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -25,7 +25,7 @@ To Verify user should login as Website Registered User
     ${chck_payment_page}=    Run Keyword And Return Status    Element Should Be Visible    id=block-paymentmode
     Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
 
-To Verify User should reset the password with Unrecognized Username
+To Verify User should reset the password with Unrecognized Username LP1
     #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Onetime donation LP1    2000
@@ -33,7 +33,7 @@ To Verify User should reset the password with Unrecognized Username
     password reset with Unrecognized data    dummy
     password reset Unrecognized data alert    UnrecognizedUsername
 
-To Verify User should reset the password with Unrecognized email ID
+To Verify User should reset the password with Unrecognized email ID LP1
     #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -41,7 +41,7 @@ To Verify User should reset the password with Unrecognized email ID
     password reset with Unrecognized data    fgfdgddf@dfg.fddsf
     password reset Unrecognized data alert    Unrecognized email ID
     
-To verify support any child section amount is not adding with OTD
+To verify support any child section amount is not adding with OTD LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Page scrolling
@@ -51,7 +51,7 @@ To verify support any child section amount is not adding with OTD
     Landing1 singin    logimohan@gmail.com    logi
     #Checking payment gateway and amount
    
-To Verify User should login with Valid Credentials
+To Verify User should login with Valid Credentials LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -59,7 +59,7 @@ To Verify User should login with Valid Credentials
     ${chck_payment_page}=    Run Keyword And Return Status    Element Should Be Visible    id=block-paymentmode
     Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
 
-To Verify User should login with Invalid credentials
+To Verify User should login with Invalid credentials LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -67,7 +67,7 @@ To Verify User should login with Invalid credentials
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
     
-To Verify User should login with email id only
+To Verify User should login with email id only LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -75,7 +75,7 @@ To Verify User should login with email id only
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
 
-To Verify user should login with Only Password
+To Verify user should login with Only Password LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -83,7 +83,7 @@ To Verify user should login with Only Password
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
 
-To Verify user should login without Credentials
+To Verify user should login without Credentials LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -101,7 +101,7 @@ Landing page1 ensure child and default amount display or not
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     check default amt and child in page1
     
-Landing page 1 select child using SI flow
+Landing page 1 select child using SI flow LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage1 using SI flow
@@ -109,7 +109,7 @@ Landing page 1 select child using SI flow
     Landing singin
     Payment gateway list size and text for SI flow
 
-Landing page 1 select child and payment success in Checkout flow
+Landing page 1 select child and payment success in Checkout flow LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Select child in landingpage
@@ -118,7 +118,7 @@ Landing page 1 select child and payment success in Checkout flow
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
-Donate RS 4000 through One Time Donation Payment flow
+Donate RS 4000 through One Time Donation Payment flow LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Onetime donation LP1    4000
@@ -126,7 +126,7 @@ Donate RS 4000 through One Time Donation Payment flow
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
     
-To verify One time donation amount field validation
+To verify One time donation amount field validation LP1
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index.html    ${browser}
     Onetime donation LP1    100
@@ -141,12 +141,12 @@ To verify One time donation amount field validation
     Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
     #Need clarification for Max alert 
     
-Landing page2 ensure child and default amount display or not
+Landing page2 ensure child and default amount display or not LP2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     check default amt and child in page2
     
-To Donate RS 3000 through One Time Donation
+To Donate RS 3000 through One Time Donation LP2
     [Tags]    LP-2: Verify Donate thorugh One time donation
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -155,7 +155,7 @@ To Donate RS 3000 through One Time Donation
     CCavenue payment success flow
     #Payment cover in ccAvenue not offline(Paytm)
 
-To verify OTD flow should not lead to SI
+To verify OTD flow should not lead to SI LP2
     [Tags]    LP-2: Verify Donate thorugh One time donation
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -164,7 +164,7 @@ To verify OTD flow should not lead to SI
     ${chck_SI_payment_sec}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='payment-mode si-pop-4 tab-pane step-content']
     Run Keyword If    'True'=='${chck_SI_payment_sec}'    Fail    "Select Onetime donation but payment gateway display like SI"
 
-To verify One time donation amount field validation
+To verify One time donation amount field validation LP2
     [Tags]    LP-2: Verify Donate thorugh One time donation
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -180,7 +180,7 @@ To verify One time donation amount field validation
     Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
     #Need clarification for Max alert
 
-To Verify User should login with Invalid credentials
+To Verify User should login with Invalid credentials LP2
     [Tags]    LP-2:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -189,7 +189,7 @@ To Verify User should login with Invalid credentials
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
 
-To Verify User should login with email id only
+To Verify User should login with email id only LP2
     [Tags]    LP-2:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -198,7 +198,7 @@ To Verify User should login with email id only
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
 
-To Verify user should login with Only Password
+To Verify user should login with Only Password LP2
     [Tags]    LP-2:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -207,7 +207,7 @@ To Verify user should login with Only Password
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInEmailErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
 
-To Verify user should login without Credentials
+To Verify user should login without Credentials LP2
     [Tags]    LP-2:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
@@ -222,7 +222,7 @@ To Verify user should login without Credentials
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
     
-Landing page 2 select child and payment success in Checkout flow
+Landing page 2 select child and payment success in Checkout flow LP2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select child in landingpage 2
@@ -231,7 +231,7 @@ Landing page 2 select child and payment success in Checkout flow
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
-Landing page 2 select child using SI flow
+Landing page 2 select child using SI flow LP2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select child in landingpage2 using SI flow
@@ -239,14 +239,14 @@ Landing page 2 select child using SI flow
     Landing2 singin
     Payment gateway list size and text for SI flow
 
-Landing page2 Onetime donation
+Landing page2 Onetime donation LP2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Onetime donation LP2    1000	
     Landing2 singin
     Payment gateway list size and text for indian passport holder
 
-To verify OTD should not accept Si
+To verify OTD should not accept Si LP2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Onetime donation LP2    1000
@@ -254,12 +254,12 @@ To verify OTD should not accept Si
     ${chck_SI_payment_sec}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='payment-mode si-pop-4 tab-pane step-content']
     Run Keyword If    'True'=='${chck_SI_payment_sec}'    Fail    "Select Onetime donation but payment gateway display like SI"
     
-Landing page2 select multiple child and payment success in Checkout flow
+Landing page2 select multiple child and payment success in Checkout flow LP2
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select multi child in landingpage2 using checkout page
     
-Landing page3 ensure child and default amount display or not
+Landing page3 ensure child and default amount display or not LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_list_display}=    Get Element Count    xpath=.//div[@class='owl-item active']
@@ -271,7 +271,7 @@ Landing page3 ensure child and default amount display or not
     ${chck_default_val_checked}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='round']/label)[1]    class
     Run Keyword If    'active'!='${chck_default_val_checked}'    Fail    "Landing page3 in Child section default amount '800' not checked"
 
-Landing page 3 select child and payment success in Checkout flow
+Landing page 3 select child and payment success in Checkout flow LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
@@ -284,7 +284,7 @@ Landing page 3 select child and payment success in Checkout flow
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
-Landing page3 select child using SI Flow
+Landing page3 select child using SI Flow LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
@@ -298,7 +298,7 @@ Landing page3 select child using SI Flow
     Landing singin
     Payment gateway list size and text for SI flow
 
-Landing page3 select dropdown val
+Landing page3 select dropdown val LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
@@ -319,7 +319,7 @@ Landing page3 select dropdown val
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
 
-Landing page3 select dropdown val and child
+Landing page3 select dropdown val and child LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
@@ -339,7 +339,7 @@ Landing page3 select dropdown val and child
     #Payment gateway list size and text for indian passport holder
     #CCavenue payment success flow
 	
-To donate for Hygiene Kit for Covid 19
+To donate for Hygiene Kit for Covid 19 LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
@@ -357,7 +357,7 @@ To donate for Hygiene Kit for Covid 19
     #CCavenue payment success flow
     #Ensure acknowledgement
 
-To donate for Cash Voucher for covid 19
+To donate for Cash Voucher for covid 19 LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
@@ -376,7 +376,7 @@ To donate for Cash Voucher for covid 19
     #CCavenue payment success flow
     #Ensure acknowledgement
 
-To donate for Dry ration for a family
+To donate for Dry ration for a family LP3
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
@@ -395,7 +395,7 @@ To donate for Dry ration for a family
     #CCavenue payment success flow
     #Ensure acknowledgement
 
-To Verify User should register account without Data
+To Verify User should register account without Data LP3
     [Tags]    LP-3:Registration Functionallity
     #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
@@ -520,7 +520,7 @@ To Verify User should register account without Data
     # Click create a new Account
     Click Element    //a[@class='btn btn-default wv-signUp']
     
-To Verify User should login with Valid Credentials
+To Verify User should login with Valid Credentials LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
@@ -532,7 +532,7 @@ To Verify User should login with Valid Credentials
         ${login_success}=    Run Keyword And Return Status    Element Should Be Visible    id=block-checkoutpaymentprogress
     Run Keyword If    'True'!='${login_success}'    Fail    "Enter valid credentials but not get into login success"
     
-To Verify User should login with Invalid credentials
+To Verify User should login with Invalid credentials LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
@@ -544,7 +544,7 @@ To Verify User should login with Invalid credentials
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
 
-To Verify user should login without Credentials
+To Verify user should login without Credentials LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
@@ -562,7 +562,7 @@ To Verify user should login without Credentials
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
 
-To Verify User should login with email id only
+To Verify User should login with email id only LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
@@ -574,7 +574,7 @@ To Verify User should login with email id only
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
 
-To Verify user should login with Only Password
+To Verify user should login with Only Password LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-3.html
     #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-3.html    ${browser}
