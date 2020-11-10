@@ -1,6 +1,7 @@
 *** Settings ***
 Test Teardown     Close Browser
 Library           SeleniumLibrary
+Library           String
 
 
 
@@ -18,6 +19,7 @@ ${hygiene_kit}    400
 ${general_donation_covid19}    1000
 ${onetime_donation_amt}    20000
 ${OTD_min_alert}    Minimum is ₹ 800.
+${un_recog_name}     vxbxcxc
 ${un_recog_email}    dfgdfsfgdf@sdfds.fdssd
 *** Test Cases ***
 To Verify user should login as Website Registered User LP1
@@ -619,7 +621,7 @@ To Verify user should login with Only Password LP3
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
     
-To Verify user should reset the password without Entering Email and Username
+To Verify user should reset the password without Entering Email and Username LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    ${url_3}
     #Local browser launch landingpage    ${url_3}    ${browser}
@@ -637,7 +639,7 @@ To Verify user should reset the password without Entering Email and Username
     ${pwd}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//strong[@id='edit-name-error']
     Run Keyword If    'True'!='${pwd}'    Fail    "Without entering the Username or email address after clicking the submit button, 'Username or email address is required' alert error msg not display"
 
-To Verify User should reset the password with Unrecognized email ID
+To Verify User should reset the password with Unrecognized email ID LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    ${url_3}
     #Local browser launch landingpage    ${url_3}    ${browser}
@@ -655,7 +657,53 @@ To Verify User should reset the password with Unrecognized email ID
     # Alert should display in the password section
     ${pwd}=    Run Keyword And Return Status    Element Should Be Visible    xpath=(//div[@class='form-item--error-message'])[2]
     Run Keyword If    'True'!='${pwd}'    Fail    "Enter the unrecognized email ID after clicking the submit button, '${un_recog_email} is not recognized as a username or an email address' alert error msg not display"
+    
+    To Verify User should reset the password with Unrecognized Username LP3
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+        # Click signin in registration pageSSS
+    Click Element    (//a[text()='Sign In'])[1]
+        # Click Forgot Password?        
+    Click Element    //a[@class='forgot-password']       
+    
 
+    Input Text    //input[@id='edit-name']    ${un_recog_name}
+    
+    
+       # Click Submit button
+    Click Element    //input[@id='edit-submit']  
+    
+    # Alert should display in the password section
+   ${pwd}=    Run Keyword And Return Status    Element Should Be Visible    xpath=(//div[@class='form-item--error-message'])[2] 
+   Run Keyword If    'True'!='${pwd}'    Fail    "Enter the unrecognized name after clicking the submit button,'${un_recog_name} is not recognized as a username or an email address' alert error msg not display"
+
+To Verify user should login as Website Registered User LP3
+    [Tags]    LP-3:Login Functionallity
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+        # # Click in Sign In 
+    Click Element    (//a[text()='Sign In'])[1] 
+        # Enter the Email ID
+    Input Text    //input[@id='emailcheck']    logimohan@gmail.com       
+        # Enter the Password
+    Input Password    //input[@id='pwd']    logi  
+    
+    Click Element    (//a[text()='Submit'])[1]       
+    
+       
+    # Alert should display in the password section
+   ${payment}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//span[text()='Payment Details']
+   
+   Run Keyword If    'True'!='${payment}'    Fail    "Enter the Valid credential after the click Submit button, 'Payment gateway page not display' "
 *** Keywords ***
 Jenkins browser launch
     [Arguments]    ${url}
