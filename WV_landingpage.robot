@@ -25,6 +25,8 @@ ${E_MONTHY}    800
 ${E_QUARTERLY}    2400
 ${E_HALF}    4800
 ${E_ANNUALLY}    9600
+${min_alert_gen_donation}    Minimum Amount is 800 for General Donataion
+${max_alert_gen_donation}    Maximum Amount is 100000 for General Donataion
 *** Test Cases ***
 To Verify user should login as Website Registered User LP1
     Jenkins browser launch    ${url_1}
@@ -434,6 +436,54 @@ To donate for Dry ration for a family LP3
     #CCavenue payment success flow
     #Ensure acknowledgement
 
+To verify General Donation towards Covid -19 One time donation amount field validation LP3
+    [Tags]    To verify one time donation functionality
+    #Jenkins browser launch    https://prod.worldvision.in/landingPages/child/index-3.html
+    Local browser launch landingpage    https://prod.worldvision.in/landingPages/child/index-3.html    ${browser}
+    ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
+    Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
+    ##Enter 100 in input field to check the alert msg
+    enter amount in general donation    100
+    Click Element    xpath=.//span[@class='slider round']
+    ${chck_dis_child_sec}=    Run Keyword And Return Status    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
+    Run Keyword If    'False'!='${chck_dis_child_sec}'    Fail    "Disable 'Add Child Sponsorship' section but Child section are in enable mode"
+    ${chck_dis_allow_auto_btn}=    Run Keyword And Return Status    Click Element    xpath=.//label[@for='allowAutoDebit']
+    Run Keyword If    'False'!='${chck_dis_allow_auto_btn}'    Fail    "Disable 'Add Child Sponsorship' section but 'Allow auto debit' are in enable mode"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${get_alert_txtfor_100}=    Get Text    xpath=.//div[@class='swal-text']
+    Run Keyword If    '${min_alert_gen_donation}'!='${get_alert_txtfor_100}'    Fail    "Enter Minimum amount '100' but ${min_alert_gen_donation} alert popup text not display"
+    Click Element    xpath=.//button[@class='swal-button swal-button--confirm']
+    Clear Element Text    id=email1
+    ##Enter 799 in input field to check the alert msg
+    enter amount in general donation    799
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${get_alert_txtfor_799}=    Get Text    xpath=.//div[@class='swal-text']
+    Run Keyword If    '${min_alert_gen_donation}'!='${get_alert_txtfor_799}'    Fail    "Enter Minimum amount '100' but ${min_alert_gen_donation} alert popup text not display"
+    Click Element    xpath=.//button[@class='swal-button swal-button--confirm']
+    Clear Element Text    id=email1
+    ##Enter 800 in input field to accept the value
+    enter amount in general donation    800
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Registration section not display"
+    Click Element    xpath=.//div[@class='close-pop']
+    Clear Element Text    id=email1
+    ##Enter 100001 in input field to check the alert msg
+    enter amount in general donation    100001
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${get_alert_txtfor_100001}=    Get Text    xpath=.//div[@class='swal-text']
+    Run Keyword If    '${max_alert_gen_donation}'!='${get_alert_txtfor_100001}'    Fail    "Enter Maximum amount '100001' but ${max_alert_gen_donation} alert popup text not display"
+    Click Element    xpath=.//button[@class='swal-button swal-button--confirm']
+    Clear Element Text    id=email1
+    ##Enter 99999 in input field to accept the value and check payment page
+    enter amount in general donation    99999
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Registration section not display"
+    Landing1 singin    logimohan@gmail.com    logi
+    ${login_success}=    Run Keyword And Return Status    Element Should Be Visible    id=block-checkoutpaymentprogress
+    Run Keyword If    'True'!='${login_success}'    Fail    "Enter valid credentials but not get into payment page"
+    
 To Verify User should register account without Data LP3
     [Tags]    LP-3:Registration Functionallity
     #Jenkins browser launch    ${url_3}
@@ -621,6 +671,8 @@ To Verify user should login with Only Password LP3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     Landing1 singin with password    jfvfdjf@gds.asdas
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
@@ -633,6 +685,8 @@ To Verify user should reset the password without Entering Email and Username LP3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     # Click signin in registration pageSSS
     Click Element    (//a[text()='Sign In'])[1]
     # Click Forgot Password?
@@ -651,6 +705,8 @@ To Verify User should reset the password with Unrecognized email ID LP3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     # Click signin in registration pageSSS
     Click Element    (//a[text()='Sign In'])[1]
     # Click Forgot Password?
@@ -670,6 +726,8 @@ To Verify User should reset the password with Unrecognized email ID LP3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
         # Click signin in registration pageSSS
     Click Element    (//a[text()='Sign In'])[1]
         # Click Forgot Password?        
@@ -694,6 +752,8 @@ To Verify user should login as Website Registered User LP3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
         # # Click in Sign In 
     Click Element    (//a[text()='Sign In'])[1] 
         # Enter the Email ID
@@ -708,6 +768,118 @@ To Verify user should login as Website Registered User LP3
    ${payment}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//span[text()='Payment Details']
    
    Run Keyword If    'True'!='${payment}'    Fail    "Enter the Valid credential after the click Submit button, 'Payment gateway page not display' "
+   
+To Verify User should create an account without uploading Passport Copy LP3
+
+    [Tags]    LP-3:Registration Functionallity
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    Postal code
+    City
+    State
+    Country
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Click Element    //input[@id='otherNation']
+    Create a new Account
+    ${Other Passport Holder}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpUploadErr']
+    Run Keyword If    'True'!='${Other Passport Holder}'    Fail    "Enter all the fields select other passport in nationality then click Created button without upload passport copy, but 'please upload passport' error msg not display"
+
+To Verify user should Register an account without Address LP3
+    [Tags]    LP-3:Registration Functionallity
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+          FirstName    
+          LastName 
+          Email   
+          Phone no 
+          Confirm Password 
+          Re-Confirm Password  
+          Postal code   
+   Click Element    //input[@id='wvdatepicker']    
+   Select From List By Value    //select[@class='ui-datepicker-year']    1990
+   Select From List By Value    //select[@class='ui-datepicker-month']    6
+   Click Link    xpath=(//a[@href='#'])[30]
+             
+   Create a new Account   
+   
+   ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
+    
+   Run Keyword If    'True'!='${Address-1}'    Fail    "Enter all the fields except Address 1 then click Created button, but 'Please enter the Address 1' error message not display" 
+
+   Input Text    (//input[@class='form-control'])[9]   Address1    
+   Create a new Account   
+  
+   ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    
+   Run Keyword If    'True'!='${Address-2}'    Fail    "Enter all the fields except Address 2 then click Created button, but 'Please enter the Address 2' error message not display" 
+     
+   Input Text    (//input[@class='form-control'])[10]   Address2    
+   Create a new Account   
+   
+   ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
+    
+   Run Keyword If    'True'!='${Address-3}'    Fail    "Enter all the fields except Address 3 then click Created button, but 'Please enter the Address 3' error message not display"
+
+To Verify user should Register an account without entering Password LP3
+    [Tags]    LP-3:Registration Functionallity
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+          FirstName    
+          LastName 
+          Email   
+          Phone no 
+	  Address1  
+          Address2  
+          Address3
+          Postal code   
+                
+    
+   Click Element    //input[@id='wvdatepicker']    
+   Select From List By Value    //select[@class='ui-datepicker-year']    1990
+   Select From List By Value    //select[@class='ui-datepicker-month']    6
+   Click Link    xpath=(//a[@href='#'])[30]
+   
+           
+   Create a new Account   
+    
+   ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
+   Run Keyword If    'True'!='${CPassword}'    Fail    "Enter all the fields except Confirm Password then click Created button, but 'Please enter the Confirm Password' alert message not display" 
+   
+   Input Text    (//input[@type='password'])[1]   asdf        
+   Create a new Account
+
+   ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
+   Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter all the fields except Re-Confirm Password then click Created button, but 'Please enter the Re-Confirm Password' alert message not display"
 *** Keywords ***
 Jenkins browser launch
     [Arguments]    ${url}
@@ -760,6 +932,10 @@ CCAvenue payment failure flow
     Log To Console    Payment failure text:${payment_success_msg}
     Run Keyword If    'PAYMENT FAILED'!='${payment_success_msg}'    Fail    "Payment Failure page not display"
 
+enter amount in general donation
+    [Arguments]    ${amt}
+    Input Text    id=email1    ${amt}
+    
 Select child in landingpage
     Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
     Click Element    xpath=(.//div[@class='owl-item active'])[1]
@@ -1023,3 +1199,45 @@ Number of Children
         Should Be Equal    ${A_ANNUALLY}    ${result}
         Log To Console    ${A_ANNUALLY}
     END
+
+FirstName
+    Input Text    (//input[@class='form-control alphabet_valid'])[1]    Test
+
+LastName
+    Input Text    (//input[@class='form-control alphabet_valid'])[2]    Testing
+
+Email
+    Input Text    (//input[@type='email'])[2]    test@gmail.com
+
+Phone no
+    Input Text    (//input[@class='form-control'])[7]    9940613589
+
+Confirm Password
+    Input Text    (//input[@type='password'])[1]    asdf
+
+Re-Confirm Password
+    Input Text    (//input[@type='password'])[2]    asdf
+
+Address1
+    Input Text    (//input[@class='form-control'])[9]    Address1
+
+Address2
+    Input Text    (//input[@class='form-control'])[10]    Address2
+
+Address3
+    Input Text    (//input[@class='form-control'])[11]    Address3
+
+Postal code
+    Input Text    (//input[@class='form-control'])[12]    602343
+
+City
+    Input Text    (//input[@class='form-control'])[13]    assdg
+
+State
+    Input Text    (//input[@class='form-control'])[14]    asdfg
+
+Country
+    Select From List By Index    //select[@id='country']    2
+
+Create a new Account
+    Click Element    //a[@class='btn btn-default wv-signUp']
