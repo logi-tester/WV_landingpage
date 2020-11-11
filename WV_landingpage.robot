@@ -21,6 +21,10 @@ ${onetime_donation_amt}    20000
 ${OTD_min_alert}    Minimum is ₹ 800.
 ${un_recog_name}     vxbxcxc
 ${un_recog_email}    dfgdfsfgdf@sdfds.fdssd
+${E_MONTHY}    800
+${E_QUARTERLY}    2400
+${E_HALF}    4800
+${E_ANNUALLY}    9600
 *** Test Cases ***
 To Verify user should login as Website Registered User LP1
     Jenkins browser launch    ${url_1}
@@ -844,7 +848,7 @@ Select child in landingpage 3
 
 Landing1 singin
     [Arguments]    ${username}    ${password}
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    ${username}
@@ -852,7 +856,7 @@ Landing1 singin
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
 Forgot password
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Log To Console    Status:${display_reg}
     Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
@@ -871,29 +875,29 @@ password reset Unrecognized data alert
     
 Landing1 singin with email
     [Arguments]    ${username}
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    ${username}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
 Landing1 singin with password
     [Arguments]    ${password}
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    id=pwd    ${password}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
 Landing1 singin without credentials
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']  
     
 Landing singin
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    kumaran@xerago.com
     Input Text    id=pwd    test
@@ -901,16 +905,16 @@ Landing singin
 
 Landingpage2 singin
     [Arguments]    ${username}    ${password}
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    ${username}
     Input Text    id=pwd    ${password}
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     
 Landing2 singin
-    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    id=accordion
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    kumaran@xerago.com
     Input Text    id=pwd    test
