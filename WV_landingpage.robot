@@ -34,6 +34,7 @@ To Verify user should login as Website Registered User LP1
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
+    Capture Page Screenshot
     Landing1 singin    Fin.felix@gmail.com    mega@123
     ${chck_payment_page}=    Run Keyword And Return Status    Element Should Be Visible    id=block-paymentmode
     Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
