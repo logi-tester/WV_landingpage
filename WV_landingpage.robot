@@ -1016,7 +1016,7 @@ To Verify User should Create a account with existing registered mail LP3
 *** Keywords ***
 Jenkins browser launch
     [Arguments]    ${url}
-    Set Selenium Speed    1s
+    Set Selenium Speed    .5s
     ${chrome_options} =    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${chrome_options}    add_argument    headless
     Call Method    ${chrome_options}    add_argument    disable-gpu
@@ -1024,7 +1024,7 @@ Jenkins browser launch
     Create WebDriver    Chrome    chrome_options=${chrome_options}
     Set Window Size    1366    768
     Go To    ${url}
-    Set Browser Implicit Wait    15s
+    Set Browser Implicit Wait    60s
 
 Local browser launch landingpage
     [Arguments]    ${baseurl}    ${browser}
