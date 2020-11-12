@@ -720,7 +720,7 @@ To Verify User should reset the password with Unrecognized email ID LP3
     ${pwd}=    Run Keyword And Return Status    Element Should Be Visible    xpath=(//div[@class='form-item--error-message'])[2]
     Run Keyword If    'True'!='${pwd}'    Fail    "Enter the unrecognized email ID after clicking the submit button, '${un_recog_email} is not recognized as a username or an email address' alert error msg not display"
     
-    To Verify User should reset the password with Unrecognized Username LP3
+To Verify User should reset the password with Unrecognized Username LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    ${url_3}
     #Local browser launch landingpage    ${url_3}    ${browser}
