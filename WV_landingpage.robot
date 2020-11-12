@@ -1158,7 +1158,7 @@ Select child in landingpage 3
 Landing1 singin
     [Arguments]    ${username}    ${password}
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    ${username}
     Input Text    id=pwd    ${password}
@@ -1166,8 +1166,8 @@ Landing1 singin
 
 Forgot password
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
-    Log To Console    Status:${display_reg}
-    Run Keyword If    True!=${display_reg}    Fail    "Regsitration section not display"
+    
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Click Element    xpath=.//a[@class='forgot-password']
 
