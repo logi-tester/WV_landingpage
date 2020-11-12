@@ -441,8 +441,8 @@ To donate for Dry ration for a family LP3
 
 To verify General Donation towards Covid -19 One time donation amount field validation LP3
     [Tags]    To verify one time donation functionality
-    #Jenkins browser launch    https://prod.worldvision.in/landingPages/child/index-3.html
-    Local browser launch landingpage    https://prod.worldvision.in/landingPages/child/index-3.html    ${browser}
+    Jenkins browser launch    https://prod.worldvision.in/landingPages/child/index-3.html
+    #Local browser launch landingpage    https://prod.worldvision.in/landingPages/child/index-3.html    ${browser}
     ${chck_covid_sec_display}=    Run Keyword And Return Status    Element Should Be Visible    id=covid
     Run Keyword If    'True'!='${chck_covid_sec_display}'    Fail    "Landing page3 Covid section not display"
     ##Enter 100 in input field to check the alert msg
@@ -489,8 +489,8 @@ To verify General Donation towards Covid -19 One time donation amount field vali
     
 To Verify User should register account without Data LP3
     [Tags]    LP-3:Registration Functionallity
-    #Jenkins browser launch    ${url_3}
-    Local browser launch landingpage    ${url_3}    ${browser}
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
     # Click Donate amount in    800 Monthly
     Click Element    //div[@class='round']//label
     # Select Allow auto debit check box
@@ -502,7 +502,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter your First name
     ${Fname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpfnameErr']
-    Log To Console    Firstname Status:${Fname}
+    
     Run Keyword If    'True'!='${Fname}'    Fail    "Without entering First Name after the click Create New Account, ' FirstName' error message not display"
     # Enter the FirstName
     Input Text    (//input[@class='form-control alphabet_valid'])[1]    Test
@@ -510,7 +510,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter your Last name
     ${Lname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUplnameErr']
-    Log To Console    Lastname Status:${Lname}
+    
     Run Keyword If    'True'!='${Lname}'    Fail    "Enter the First Name after the click Create New Account, 'LastName' error message not display"
     # Enter the LastName
     Input Text    (//input[@class='form-control alphabet_valid'])[2]    testt
@@ -518,7 +518,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter your Email
     ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
-    Log To Console    Email Status:${Email}
+    
     Run Keyword If    'True'!='${Email}'    Fail    "Enter the Last Name after the click Create New Account, 'Email address' error message not display"
     # Enter the Email ID
     Input Text    (//input[@type='email'])[2]    test@gmail.com
@@ -526,7 +526,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter your Phone number
     ${Ph}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
-    Log To Console    Phone Status:${Ph}
+    
     Run Keyword If    'True'!='${Ph}'    Fail    "Enter the Email after the click Create New Account, 'Phone number' error message not display"
     # Enter the Phone number
     Input Text    (//input[@class='form-control'])[7]    9940613589
@@ -534,7 +534,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the Confirm Password
     ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
-    Log To Console    C-Password Status:${CPassword}
+    
     Run Keyword If    'True'!='${CPassword}'    Fail    "Enter the Phone Number after the click Create New Account, 'Confirm Password' error message not display"
     # Enter the Confirm Password
     Input Text    (//input[@type='password'])[1]    asdf
@@ -542,7 +542,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the Re-Confirm Password
     ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
-    Log To Console    RC-Password Status:${RCPassword}
+    
     Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter the Confirm Password after the click Create New Account, 'Re-Confirm Password' error message not display"
     # Enter the Re-Confirm Password
     Input Text    (//input[@type='password'])[2]    asdf
@@ -550,7 +550,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the Address 1
     ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
-    Log To Console    Address-1 Status:${Address-1}
+    
     Run Keyword If    'True'!='${Address-1}'    Fail    "Enter the Re-Confirm Password after the click Create New Account, 'Address 1' error message not display"
     # Enter the Address 1
     Input Text    (//input[@class='form-control'])[9]    Address1
@@ -558,7 +558,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the Address 2
     ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
-    Log To Console    Address-2 Status:${Address-2}
+    
     Run Keyword If    'True'!='${Address-2}'    Fail    "Enter the Address 1 after the click Create New Account, 'Address 2' error message not display"
     # Enter the Address 2
     Input Text    (//input[@class='form-control'])[10]    Address2
@@ -566,7 +566,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the Postalcode
     ${Postalcode}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPscodeErr']
-    Log To Console    Postalcode Status:${Postalcode}
+    
     Run Keyword If    'True'!='${Postalcode}'    Fail    "Enter the Address 2 after the click Create New Account, 'Postalcode' error message not display"
     # Enter the Postalcode
     Input Text    (//input[@class='form-control'])[11]    656545
@@ -574,7 +574,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the City
     ${City}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCityErr']
-    Log To Console    City Status:${City}
+    
     Run Keyword If    'True'!='${City}'    Fail    "Enter the Postalcode after the click Create New Account, 'City' error message not display"
     # Enter the City
     Input Text    (//input[@class='form-control'])[12]    assdg
@@ -582,7 +582,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the State
     ${state}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpStateErr']
-    Log To Console    State Status:${state}
+    
     Run Keyword If    'True'!='${state}'    Fail    "Enter the City after the click Create New Account, 'State' error message not display"
     # Enter the State
     Input Text    (//input[@class='form-control'])[13]    asdfg
@@ -590,7 +590,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the Country
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
-    Log To Console    Country Status:${Country}
+    
     Run Keyword If    'True'!='${Country}'    Fail    "Enter the State after the click Create New Account, 'Country' error message not display"
     # Clear the postal Code
     Clear Element Text    (//input[@class='form-c
@@ -602,7 +602,7 @@ To Verify User should register account without Data LP3
     Click Element    //a[@class='btn btn-default wv-signUp']
     # Required Message: Please enter the date of birth
     ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
-    Log To Console    DOB Status:${DOB}
+    
     Run Keyword If    'True'!='${DOB}'    Fail    "Enter the Postalcode after the click Create New Account, 'DOB' error message not display"
     # Select the Date of birth
     Click Element    //input[@id='wvdatepicker']
@@ -1158,6 +1158,7 @@ Select child in landingpage 3
 
 Landing1 singin
     [Arguments]    ${username}    ${password}
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
@@ -1166,6 +1167,7 @@ Landing1 singin
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
 Forgot password
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
@@ -1185,6 +1187,7 @@ password reset Unrecognized data alert
     
 Landing1 singin with email
     [Arguments]    ${username}
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
@@ -1193,6 +1196,7 @@ Landing1 singin with email
 
 Landing1 singin with password
     [Arguments]    ${password}
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
@@ -1200,12 +1204,14 @@ Landing1 singin with password
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
 Landing1 singin without credentials
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']  
     
 Landing singin
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
@@ -1215,6 +1221,7 @@ Landing singin
 
 Landingpage2 singin
     [Arguments]    ${username}    ${password}
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
@@ -1223,13 +1230,23 @@ Landingpage2 singin
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
     
 Landing2 singin
+    Capture Page Screenshot
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
     Input Text    name=email    kumaran@xerago.com
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
- 
+
+Landing3 singin
+    Capture Page Screenshot
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
+    Click Element    xpath=.//a[@class='show-signin']
+    Input Text    id=emailcheck    kumaran@xerago.com
+    Input Text    id=pwd    test
+    Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
+    
 Payment gateway list size and text for SI flow
     Sleep    5s
     Capture Page Screenshot
