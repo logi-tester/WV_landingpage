@@ -31,6 +31,7 @@ ${min_alert_gen_donation}    Minimum Amount is 800 for General Donataion
 ${max_alert_gen_donation}    Maximum Amount is 100000 for General Donataion
 *** Test Cases ***
 To Verify user should login as Website Registered User LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -40,6 +41,7 @@ To Verify user should login as Website Registered User LP1
     Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
 
 To Verify User should reset the password with Unrecognized Username LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Onetime donation LP1    2000
@@ -48,12 +50,22 @@ To Verify User should reset the password with Unrecognized Username LP1
     password reset Unrecognized data alert    UnrecognizedUsername
 
 To Verify User should reset the password with Unrecognized email ID LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
     Forgot password
     password reset with Unrecognized data    fgfdgddf@dfg.fddsf
     password reset Unrecognized data alert    Unrecognized email ID
+    
+To Verify user should reset the password without Entering Email and Username LP1
+    [Tags]    LP-1:Login Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    Forgot password
+    Click Element    id=edit-submit
+    password reset Unrecognized data alert    without Entering Email and Username
     
 To verify support any child section amount is not adding with OTD LP1
     Jenkins browser launch    ${url_1}
@@ -66,6 +78,7 @@ To verify support any child section amount is not adding with OTD LP1
     #Checking payment gateway and amount
    
 To Verify User should login with Valid Credentials LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -74,6 +87,7 @@ To Verify User should login with Valid Credentials LP1
     Run Keyword If    'True'!='${chck_payment_page}'    Fail    "User login with valid credentials but payment gateway page not display"
 
 To Verify User should login with Invalid credentials LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -82,6 +96,7 @@ To Verify User should login with Invalid credentials LP1
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
     
 To Verify User should login with email id only LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -90,6 +105,7 @@ To Verify User should login with email id only LP1
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter email id only, but password alert not display"
 
 To Verify user should login with Only Password LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -98,6 +114,7 @@ To Verify user should login with Only Password LP1
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter password only, but email alert not display"
 
 To Verify user should login without Credentials LP1
+    [Tags]    LP-1:Login Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -125,6 +142,7 @@ Landing page 1 select child using SI flow LP1
     Payment gateway list size and text for SI flow
 
 To verify payment success for cc avenue payment gateway - For passport holder LP1
+    [Tags]    Payment acknowledgment for other passport holder
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -134,6 +152,7 @@ To verify payment success for cc avenue payment gateway - For passport holder LP
     CCavenue payment success flow
 
 To verify payment failure for cc avenue payment gateway - For passport holder LP1
+    [Tags]    Payment acknowledgment for other passport holder
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
@@ -142,7 +161,8 @@ To verify payment failure for cc avenue payment gateway - For passport holder LP
     Payment gateway list size and text for indian passport holder
     CCAvenue payment failure flow
 
-Donate RS 4000 through One Time Donation Payment flow LP1
+To Donate RS 4000 through One Time Donation LP1
+    [Tags]    LP-1: Donate through one time donation
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Onetime donation LP1    4000
@@ -150,7 +170,7 @@ Donate RS 4000 through One Time Donation Payment flow LP1
     Payment gateway list size and text for indian passport holder
     CCavenue payment success flow
     
-To verify OTD should not accept Si LP1
+To verify OTD should not redirect to SI LP1
     [Tags]    LP-1: Donate through one time donation
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
@@ -160,6 +180,7 @@ To verify OTD should not accept Si LP1
     Run Keyword If    'True'=='${chck_SI_payment_sec}'    Fail    "Select Onetime donation but payment gateway display like SI" 
     
 To verify One time donation amount field validation LP1
+    [Tags]    LP-1: Donate through one time donation
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Onetime donation LP1    100
@@ -1013,7 +1034,61 @@ To Verify User should Create a account with existing registered mail LP3
     Create a new Account
     ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@class='swal-text']
     Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and Enter registered email then click Created button, but 'The Mobile Number or Username already taken', alert message not display"
-    
+
+To Verify State and City get autofill after update pincode LP3
+    [Tags]    LP-3:Registration Functionallity
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ${get_sel_child_val}=    Select child in landingpage 3
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    ${get_city_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
+    Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
+    ${get_state_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
+    Run Keyword If    '${state}'!='${get_state_val}'    Fail    "Enter valid pincode but State not auto filled"
+
+Total amount should change instant based on inputs in add child sponsorship LP3
+    [Tags]    To verify total amount variation
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
+    ##Check default amount in 0 or not##
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    0!=${total_val}    Fail    "After url load Bydefault total amount should be '0' but its not display like '0'"
+    ##End##
+    ${get_sel_child1_val}=    click any label val in child sec    1
+    Click Element    xpath=.//button[@class='owl-next']
+    ${check_child_dispaly or not}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='owl-item active']
+    Run Keyword If    'True'!='${check_child_dispaly or not}'    Fail    "Click child section next arrow button but child not display"
+    ${get_sel_child2_val}=    click any label val in child sec    2
+    ${remove_dollor_child1_val}    Remove symbol    ${get_sel_child1_val}    ₹
+    ${remove_dollor_child2_val}    Remove symbol    ${get_sel_child2_val}    ₹
+    ${remove_comma_child2_val}=    Remove symbol    ${remove_dollor_child2_val}    ,
+    ${total_2_child_amt}=    Evaluate    ${remove_dollor_child1_val}+${remove_comma_child2_val}
+    Log To Console    Total of 2 child amount is :${total_2_child_amt}
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    ${remove_comma_in_total_amt}=    Remove symbol    ${total_val}    ,
+    Log To Console    Overall totoal amount:${remove_comma_in_total_amt}
+    Run Keyword If    ${total_2_child_amt}!=${remove_comma_in_total_amt}    Fail    "Selected 2 child amount and total amunt are different"
+    ##Disbale child sponsorship section##
+    Click Element    xpath=.//span[@class='slider round']
+    ${chck_dis_child_sec}=    Run Keyword And Return Status    Click Element    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']//label)[2]
+    Run Keyword If    'False'!='${chck_dis_child_sec}'    Fail    "Disable 'Add Child Sponsorship' section but Child section are in enable mode"
+    ##Ensure disable child sponsoship total amount val##
+    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
+    Run Keyword If    '0'!='${total_val}'    Fail    "Child sponsorship in disable mode but total amount not display '0' val"
 *** Keywords ***
 Jenkins browser launch
     [Arguments]    ${url}
