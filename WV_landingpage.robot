@@ -194,6 +194,173 @@ To verify One time donation amount field validation LP1
     ${get_status_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=directPaymentErr
     Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
     #Need clarification for Max alert 
+
+To Verify State and City get autofill after update pincode LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    ${get_city_val}=    Get Element Attribute    //input[@name='city']    value
+    Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
+    ${get_state_val}=    Get Element Attribute    //input[@name='state']    value
+    Run Keyword If    '${state}'!='${get_state_val}'    Fail    "Enter valid pincode but State not auto filled"
+
+To Verify User should Create a account with existing registered mail LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Exist Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@class='swal-text']
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and Enter registered email then click Created button, but 'The Mobile Number or Username already taken', alert message not display"
+
+To Verify User should register an account with invalid Email Id LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Invalid Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    Postal code
+    City
+    State
+    Country
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and enter invalid Email id then click Created button, but 'Please enter a valid Email' alert message not display"
+
+To Verify User should register create a account with invalid phonenumber LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Invalid Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Ph}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signInPhoneErr']
+    Run Keyword If    'True'!='${Ph}'    Fail    "Enter all the fields and enter invalid mobile number then click Created button, but 'Please enter a valid 10 digit Phone number' alert message not display"
+
+To Verify User should Register an account without DOB LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Create a new Account
+    ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
+    Run Keyword If    'True'!='${DOB}'    Fail    "Enter all the fields except select the DOB then click Created button, but 'Please enter the date of birth' alert message not display"
+
+To Verify User should Register account without Selecting a country LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Address1
+    Address2
+    Address3
+    Postal code
+    City
+    State
+    Create a new Account
+    ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
+    Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
+
+To Verify user should Register an account without entering Password LP1
+    [Tags]    LP-1:Registration Functionallity
+    Jenkins browser launch    ${url_1}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
+    Run Keyword If    'True'!='${CPassword}'    Fail    "Enter all the fields except Confirm Password then click Created button, but 'Please enter the Confirm Password' alert message not display"
+    Confirm Password
+    Create a new Account
+    ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
+    Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter all the fields except Re-Confirm Password then click Created button, but 'Please enter the Re-Confirm Password' alert message not display"
     
 Landing page2 ensure child and default amount display or not LP2
     Jenkins browser launch    ${url_2}
@@ -1427,52 +1594,52 @@ Number of Children
     END
 
 FirstName
-    Input Text    (//input[@class='form-control alphabet_valid'])[1]    Test
+    Input Text    //input[@name='fname']    Test
 
 LastName
-    Input Text    (//input[@class='form-control alphabet_valid'])[2]    Testing
+    Input Text    //input[@name='lname']    Testing
 
 Email
-    Input Text    (//input[@type='email'])[2]    test@gmail.com
+    Input Text    //input[@name='sigin-email']    test@gmail.com
 
 Exist Email
-    Input Text    (//input[@type='email'])[2]    logimohan@gmail.com
+    Input Text    //div[@class='form-group']/input[@name='sigin-email']    logimohan@gmail.com
 
 Invalid Email
-    Input Text    (//input[@type='email'])[2]    testil.com
+    Input Text    //div[@class='form-group']/input[@name='sigin-email']    testil.com
 
 Phone no
-    Input Text    (//input[@class='form-control'])[7]    9940613589
+    Input Text    //input[@name='phonenumber']    9940613589
 
 Invalid Phone no
-    Input Text    (//input[@class='form-control'])[7]    9940
+    Input Text    //input[@name='phonenumber']    9940
 
 Confirm Password
-    Input Text    (//input[@type='password'])[1]    asdf
+    Input Text    //input[@name='sigin-pass']    asdf
 
 Re-Confirm Password
-    Input Text    (//input[@type='password'])[2]    asdf
+    Input Text    //input[@name='sigin-conpass']    asdf
 
 Address1
-    Input Text    (//input[@class='form-control'])[9]    Address1
+    Input Text    //input[@name='address1']    Address1
 
 Address2
-    Input Text    (//input[@class='form-control'])[10]    Address2
+    Input Text    //input[@name='address2']    Address2
 
 Address3
-    Input Text    (//input[@class='form-control'])[11]    Address3
+    Input Text    //input[@name='address3']    Address3
 
 Postal code
-    Input Text    (//input[@class='form-control'])[12]    602343
+    Input Text    //input[@name='postal-code']    602343
 
 valid postal code
-    Input Text    (//input[@class='form-control'])[12]    600099
+    Input Text    //input[@name='postal-code']    600099
 
 City
-    Input Text    (//input[@class='form-control'])[13]    assdg
+    Input Text    //input[@name='city']    assdg
 
 State
-    Input Text    (//input[@class='form-control'])[14]    asdfg
+    Input Text    //input[@name='state']    asdfg
 
 Country
     Select From List By Index    //select[@id='country']    2
