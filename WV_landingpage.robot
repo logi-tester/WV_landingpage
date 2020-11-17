@@ -452,6 +452,174 @@ To Verify user should login without Credentials LP2
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Password not entered. but alert not display"
     
+    
+To Verify State and City get autofill after update pincode LP2
+    [Tags]    LP-2:Registration Functionallity
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    ${get_city_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
+    Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
+    ${get_state_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
+    Run Keyword If    '${state}'!='${get_state_val}'    Fail    "Enter valid pincode but State not auto filled"
+
+To Verify User should Create a account with existing registered mail LP2
+    [Tags]    LP-2:Registration Functionallity
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Exist Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@class='swal-text']
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and Enter registered email then click Created button, but 'The Mobile Number or Username already taken', alert message not display"
+
+To Verify User should register an account with invalid Email Id LP2
+    [Tags]    LP-2:Registration Functionallity
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Invalid Email
+    Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    Postal code
+    City
+    State
+    Country
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and enter invalid Email id then click Created button, but 'Please enter a valid Email' alert message not display"
+
+To Verify User should register create a account with invalid phonenumber LP2
+    [Tags]    LP-2:Registration Functionallity
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Invalid Phone no
+    Confirm Password
+    Re-Confirm Password
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Ph}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signInPhoneErr']
+    Run Keyword If    'True'!='${Ph}'    Fail    "Enter all the fields and enter invalid mobile number then click Created button, but 'Please enter a valid 10 digit Phone number' alert message not display"
+
+To Verify User should Register an account without DOB LP2
+    [Tags]    LP-2:Registration Functionallity
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Address1
+    Address2
+    Address3
+    valid postal code
+    Create a new Account
+    ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
+    Run Keyword If    'True'!='${DOB}'    Fail    "Enter all the fields except select the DOB then click Created button, but 'Please enter the date of birth' alert message not display"
+
+To Verify User should Register account without Selecting a country LP2
+    [Tags]    LP-2:Registration Functionallity
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Address1
+    Address2
+    Address3
+    Postal code
+    City
+    State
+    Create a new Account
+    ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
+    Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
+
+To Verify user should Register an account without entering Password LP2
+    [Tags]    LP-2:Registration Functionallity
+    #Jenkins browser launch    ${url_2}
+    Local browser launch landingpage    ${url_2}    ${browser}
+    Select child in landingpage 2
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
+    FirstName
+    LastName
+    Email
+    Phone no
+    Address1
+    Address2
+    Address3
+    Postal code
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
+    Run Keyword If    'True'!='${CPassword}'    Fail    "Enter all the fields except Confirm Password then click Created button, but 'Please enter the Confirm Password' alert message not display"
+    Input Text    (//input[@type='password'])[1]    asdf
+    Create a new Account
+    ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
+    Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter all the fields except Re-Confirm Password then click Created button, but 'Please enter the Re-Confirm Password' alert message not display"
+    
 Landing page 2 select child and payment success in Checkout flow LP2
     Jenkins browser launch    ${url_2}
     #Local browser launch landingpage    ${url_2}    ${browser}
