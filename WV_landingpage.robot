@@ -20,7 +20,7 @@ ${general_donation_covid19}    1000
 ${onetime_donation_amt}    20000
 ${OTD_min_alert}    Minimum is ₹ 800.
 ${un_recog_name}     vxbxcxc
-${un_recog_email}    dfgdfsfgdf@sdfds.ymail
+${un_recog_email}    dfgdfsfgdf@sdfds.ymailf
 ${city}           Chennai
 ${state}          Tamil Nadu
 ${E_MONTHY}    800
