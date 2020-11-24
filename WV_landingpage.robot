@@ -195,6 +195,33 @@ To verify One time donation amount field validation LP1
     Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
     #Need clarification for Max alert 
 
+To Verify user should Register an account without Address LP1
+    [Tags]    LP-1:Registration Functionality
+    Jenkins browser launch    ${url}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName    test
+    LastName    tesr
+    Email    test@gmail.com
+    Phone no    9940689789
+    Confirm Password    asdf
+    Re-Confirm Password    asdf
+    Postal code    600099
+    Create new Account
+    ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
+    Run Keyword If    'True'!='${Address-1}'    Fail    "Without Enter the Address1 then click Created button, 'Please enter the Address 1' alert message not display"
+    Address1    Address1
+    Create new Account
+    ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    Run Keyword If    'True'!='${Address-2}'    Fail    "Enter the Address1 then click Created button, 'Please enter the Address 2' alert message not display"
+    Address2    Address2
+    Create new Account
+    ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
+    Run Keyword If    'True'!='${Address-3}'    Fail    "Enter the Address2 then click Created button, 'Please enter the Address 3' alert message not display"
+
+    
 To Verify User should register an Account with Invalid data LP1
     [Tags]    LP-1:Registration Functionality
     Jenkins browser launch    ${url}
@@ -277,6 +304,7 @@ To Verify User should register an Account with Invalid data LP1
     Run Keyword If    'True'!='${Indian Citizen}'    Fail    "Without selecting Indian Citizen checkbox then click Created button, 'Please select the Nationality' alert message not display"
     Indian Citizen
     Create a new Account
+    
 To Verify User should register account without Data LP1
     [Tags]    LP-1:Registration Functionality
     Jenkins browser launch    ${url}
