@@ -181,8 +181,8 @@ To verify OTD should not redirect to SI LP1
     
 To verify One time donation amount field validation LP1
     [Tags]    LP-1: Donate through one time donation
-    Jenkins browser launch    ${url_1}
-    #Local browser launch landingpage    ${url_1}    ${browser}
+    #Jenkins browser launch    ${url_1}
+    Local browser launch landingpage    ${url_1}    ${browser}
     Onetime donation LP1    100
     ${get_alert_msg}=    Get Text    id=directPaymentErr
     Run Keyword If    ${get_alert_msg}!=${OTD_min_alert}    Fail    "OTD enter amount 100, but validation '${OTD_min_alert}' alert not display"
@@ -195,6 +195,161 @@ To verify One time donation amount field validation LP1
     Run Keyword If    'True'=='${get_status_alert}'    Fail    "Enter minimum 800 amount but alert are display"
     #Need clarification for Max alert 
 
+To Verify User should register an Account with Invalid data LP1
+    [Tags]    LP-1:Registration Functionality
+    Jenkins browser launch    ${url}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    FirstName    test@123
+    Create a new Account
+    ${Fname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpfnameErr']
+    Run Keyword If    'True'!='${Fname}'    Fail    "Enter Invalid FirstName then click Created button, 'Please use alpha and space' alert message not display"
+    FirstName    test
+    LastName    test@1234
+    Create a new Account
+    ${Lname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUplnameErr']
+    Run Keyword If    'True'!='${Lname}'    Fail    "Enter Invalid LastName then click Created button, 'Please use alpha and space.' alert message not display"
+    LastName    tests
+    Email    test123@
+    Create a new Account
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter Invalid Email id then click Created button, 'Please enter a valid Email' alert message not display"
+    Email    test123@gmail.com
+    Phone no    99406
+    Create a new Account
+    ${Phone}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signInPhoneErr']
+    Run Keyword If    'True'!='${Phone}'    Fail    "Enter Invalid Phone no then click Created button, 'Please enter a valid 10 digit Phone number' alert message not display"
+    Phone no    9940613579
+    Create a new Account
+    Confirm Password    asdf
+    ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
+    Run Keyword If    'True'!='${CPassword}'    Fail    "without Enter the Confirm Password then click Created button, 'Please enter the Password' alert message not display"
+    Re-Confirm Password    asdff
+    Create a new Account
+    ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
+    Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter the InvalidRe-Confirm Password after then click Created button, 'Please enter the Confirm Password' alert message not display"
+    Re-Confirm Password    asdf
+    Create a new Account
+    Address1    Address1@
+    ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
+    Run Keyword If    'True'!='${Address-1}'    Fail    "Enter the Invalid Address1 then click Created button, 'Enter the valid Address 1' alert message not display"
+    Address1    Address1
+    Create a new Account
+    Address2    Address2#
+    ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    Run Keyword If    'True'!='${Address-2}'    Fail    "Enter the Invalid Address2    then click Created button, 'Enter the valid Address 2' alert message not display"
+    Address2    Address2
+    Create a new Account
+    Address3    Address3$
+    ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
+    Run Keyword If    'True'!='${Address-3}'    Fail    "Enter the Invalid Address3    then click Created button, 'Enter the valid Address 3' alert message not display"
+    Address3    Address3
+    Create a new Account
+    Postal code    7457
+    ${Postalcode}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPscodeErr']
+    Run Keyword If    'True'!='${Postalcode}'    Fail    "Enter the InValid Postal code then click Created button, 'Please enter a valid 6 digit PostalCode' alert message not display"
+    Postal code    789526
+    Create a new Account
+    City    @assdf
+    ${City}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCityErr']
+    Run Keyword If    'True'!='${City}'    Fail    "Enter the InValid City then click Created button, 'Please enter a valid City.' alert message not display"
+    City    chenn
+    Create a new Account
+    State    $asdfg
+    ${state}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpStateErr']
+    Run Keyword If    'True'!='${state}'    Fail    "Enter the InValid State then click Created button, 'Please enter a valid State.' alert message not display"
+    State    asdf
+    Create a new Account
+    ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
+    Run Keyword If    'True'!='${Country}'    Fail    "Without Select the Country then click Created button, 'Please select the Country' alert message not display"
+    Country
+    Create a new Account
+    ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
+    Run Keyword If    'True'!='${DOB}'    Fail    "Without select the DOB then click Created button, 'Please enter the date of birth' alert message not display"
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Indian Citizen}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpNationlityErr']
+    Run Keyword If    'True'!='${Indian Citizen}'    Fail    "Without selecting Indian Citizen checkbox then click Created button, 'Please select the Nationality' alert message not display"
+    Indian Citizen
+    Create a new Account
+To Verify User should register account without Data LP1
+    [Tags]    LP-1:Registration Functionality
+    Jenkins browser launch    ${url}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    Create a new Account
+    ${Fname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpfnameErr']
+    Run Keyword If    'True'!='${Fname}'    Fail    "Without Enter the FirstName then click Created button, 'Please enter your First name' alert message not display"
+    FirstName    test
+    Create a new Account
+    ${Lname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUplnameErr']
+    Run Keyword If    'True'!='${Lname}'    Fail    "Enter the FirstName then click Created button, 'Please enter your LastName' alert message not display"
+    LastName    testt
+    Create a new Account
+    ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
+    Run Keyword If    'True'!='${Email}'    Fail    "Enter the LastName then click Created button, 'Please enter your Email Id' alert message not display"
+    Email    test@gmail.com
+    Create a new Account
+    ${Ph}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signInPhoneErr']
+    Run Keyword If    'True'!='${Ph}'    Fail    "Enter the Email Id then click Created button, 'Please enter your Phone number' alert message not display"
+    Phone no    9940613587
+    Create a new Account
+    ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
+    Run Keyword If    'True'!='${CPassword}'    Fail    "Enter the Phone number then click Created button, 'Please enter the Confirm Password' alert message not display"
+    Confirm Password    asdf
+    Create a new Account
+    ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
+    Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter the Confirm Password after then click Created button, 'Please enter the Re-Confirm Password' alert message not display"
+    Re-Confirm Password    asdf
+    Create a new Account
+    ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
+    Run Keyword If    'True'!='${Address-1}'    Fail    "Enter the Re-Confirm Password then click Created button, 'Enter the valid Address 1' alert message not display"
+    Address1    Address1
+    Create a new Account
+    ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    Run Keyword If    'True'!='${Address-2}'    Fail    "Enter the Address1 then click Created button, 'Enter the valid Address 2' alert message not display"
+    Address2    Address2
+    Create a new Account
+    ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
+    Run Keyword If    'True'!='${Address-3}'    Fail    "Enter the Address2    then click Created button, 'Enter the valid Address 3' alert message not display"
+    Address3    Address3
+    Create a new Account
+    ${Postalcode}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPscodeErr']
+    Run Keyword If    'True'!='${Postalcode}'    Fail    "Enter the Address 3 then click Created button, 'Please enter the Postalcode' alert message not display"
+    Postal code    604589
+    Create a new Account
+    ${City}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCityErr']
+    Run Keyword If    'True'!='${City}'    Fail    "Enter the Postalcode then click Created button, 'Please enter the City' alert message not display"
+    City    asdf
+    Create a new Account
+    ${state}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpStateErr']
+    Run Keyword If    'True'!='${state}'    Fail    "Enter the City then click Created button, 'Please enter the State' alert message not display"
+    State    qwer
+    Create a new Account
+    ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
+    Run Keyword If    'True'!='${Country}'    Fail    "Enter the State then click Created button, 'Please select the Country' alert message not display"
+    Country
+    Create a new Account
+    ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
+    Run Keyword If    'True'!='${DOB}'    Fail    "select the Country then click Created button, 'Please enter the date of birth' alert message not display"
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Create a new Account
+    ${Indian Citizen}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpNationlityErr']
+    Run Keyword If    'True'!='${Indian Citizen}'    Fail    "Select the date of birth then click Created button, 'Please select the Nationality' alert message not display"
+    Indian Citizen
+    Create a new Account  
+    
 To Verify State and City get autofill after update pincode LP1
     [Tags]    LP-1:Registration Functionallity
     Jenkins browser launch    ${url_1}
@@ -202,16 +357,8 @@ To Verify State and City get autofill after update pincode LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    logi@gmail.com    9874565432    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
+
     ${get_city_val}=    Get Element Attribute    //input[@name='city']    value
     Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
     ${get_state_val}=    Get Element Attribute    //input[@name='state']    value
@@ -224,16 +371,7 @@ To Verify User should Create a account with existing registered mail LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Exist Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    logimohan@gmail.com    9874565432    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -249,19 +387,8 @@ To Verify User should register an account with invalid Email Id LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Invalid Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
-    Country
+    Register data    test    test    logimohan@gmail    9874565432    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
+
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -277,16 +404,7 @@ To Verify User should register create a account with invalid phonenumber LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Invalid Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    logimohan@gmail.com    98745    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -302,14 +420,7 @@ To Verify User should Register an account without DOB LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    logimohan@gmail.com    9874565432    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
     Create a new Account
     ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
     Run Keyword If    'True'!='${DOB}'    Fail    "Enter all the fields except select the DOB then click Created button, but 'Please enter the date of birth' alert message not display"
@@ -321,16 +432,10 @@ To Verify User should Register account without Selecting a country LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
+    Register data    test    test    lofdf@dfgdf.fdg    9874565432    logi    logi    kldfjgldjfgdfhgg    kldfjgldjfgdfhgg    kldfjgldjfgdfhgg    6008    
+
+    City    kjkjf
+    State    jhjhfg
     Create a new Account
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
     Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
@@ -342,14 +447,14 @@ To Verify user should Register an account without entering Password LP1
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    valid postal code
+    FirstName    test
+    LastName    test
+    Email    lofdf@dfgdf.fdg
+    Phone no    9865698656
+    Address1    sdfgdfggdfjkkjgxf
+    Address2    sdfgdfggdfjkkjgxf
+    Address3    sdfgdfggdfjkkjgxf
+    Postal code    600099
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -357,10 +462,28 @@ To Verify user should Register an account without entering Password LP1
     Create a new Account
     ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
     Run Keyword If    'True'!='${CPassword}'    Fail    "Enter all the fields except Confirm Password then click Created button, but 'Please enter the Confirm Password' alert message not display"
-    Confirm Password
+    Confirm Password    logi
     Create a new Account
     ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
     Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter all the fields except Re-Confirm Password then click Created button, but 'Please enter the Re-Confirm Password' alert message not display"
+    
+To Verify User should create an account without uploading Passport Copy LP1
+    [Tags]    LP-1:Registration Functionality
+    Jenkins browser launch    ${url}
+    #Local browser launch landingpage    ${url_1}    ${browser}
+    Select child in landingpage
+    ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
+    Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
+    Register datast    test    test    test@gmail.com    9875676543    logi    logi    ikjuytesfdwrf    ikjuytesfdwrf    ikjuytesfdwrf    600099
+    Click Element    //input[@id='wvdatepicker']
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
+    Other Passport Holder
+    Create new Account
+    ${Passport Holder}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpUploadErr']
+    Run Keyword If    'True'!='${Passport Holder}'    Fail    "Without Upload passport copy then click Created button, 'Please upload passport' alert message not display"
+    Create new Account
     
 Landing page2 ensure child and default amount display or not LP2
     Jenkins browser launch    ${url_2}
@@ -496,16 +619,8 @@ To Verify State and City get autofill after update pincode LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test1    logisdfsd@sgsd.dsf    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    
     ${get_city_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
     Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
     ${get_state_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
@@ -518,16 +633,8 @@ To Verify User should Create a account with existing registered mail LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Exist Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test1    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -543,19 +650,8 @@ To Verify User should register an account with invalid Email Id LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Invalid Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
-    Country
+    Register data    test    test1    logimohan@gmail    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -571,16 +667,8 @@ To Verify User should register create a account with invalid phonenumber LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Invalid Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test1    logimohan@gmail.com    98567    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -596,14 +684,8 @@ To Verify User should Register an account without DOB LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test1    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    
     Create a new Account
     ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
     Run Keyword If    'True'!='${DOB}'    Fail    "Enter all the fields except select the DOB then click Created button, but 'Please enter the date of birth' alert message not display"
@@ -615,16 +697,10 @@ To Verify User should Register account without Selecting a country LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
+    Register data    test    test1    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    60099
+    
+    City    kifdwe
+    State    kifddf
     Create a new Account
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
     Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
@@ -636,14 +712,14 @@ To Verify user should Register an account without entering Password LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    Postal code
+    FirstName    logi
+    LastName    mohan
+    Email    logidsfsd@fsdf.dre
+    Phone no    8975643423
+    Address1    kxvfiytrefghuhj
+    Address2    kxvfiytrefghuhj
+    Address3    kxvfiytrefghuhj
+    Postal code    600099
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -651,7 +727,7 @@ To Verify user should Register an account without entering Password LP2
     Create a new Account
     ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
     Run Keyword If    'True'!='${CPassword}'    Fail    "Enter all the fields except Confirm Password then click Created button, but 'Please enter the Confirm Password' alert message not display"
-    Input Text    (//input[@type='password'])[1]    asdf
+    Confirm Password    test
     Create a new Account
     ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
     Run Keyword If    'True'!='${RCPassword}'    Fail    "Enter all the fields except Re-Confirm Password then click Created button, but 'Please enter the Re-Confirm Password' alert message not display"
@@ -663,19 +739,8 @@ To Verify User should create an account without uploading Passport Copy LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
-    Country
+    Register data    test    test    logimohvcx@gmail.com    9856765768    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -685,10 +750,6 @@ To Verify User should create an account without uploading Passport Copy LP2
     ${Other Passport Holder}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpUploadErr']
     Run Keyword If    'True'!='${Other Passport Holder}'    Fail    "Enter all the fields select other passport in nationality then click Created button without upload passport copy, but 'please upload passport' error msg not display"
 
-
-
-
-
 To Verify user should Register an account without Address LP2
     [Tags]    LP-2:Registration Functionallity
     Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
@@ -696,13 +757,13 @@ To Verify user should Register an account without Address LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Postal code
+    FirstName    test
+    LastName    test
+    Email    logimjsdd@fsdd.das
+    Phone no    9874565432
+    Confirm Password    logi
+    Re-Confirm Password    logi
+    Postal code    600099
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -710,11 +771,11 @@ To Verify user should Register an account without Address LP2
     Create a new Account
     ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
     Run Keyword If    'True'!='${Address-1}'    Fail    "Enter all the fields except Address 1 then click Created button, but 'Please enter the Address 1' error message not display"
-    Input Text    (//input[@class='form-control'])[9]    Address1
+    Address1    ldfofsdfmsdndsurosdj
     Create a new Account
     ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
     Run Keyword If    'True'!='${Address-2}'    Fail    "Enter all the fields except Address 2 then click Created button, but 'Please enter the Address 2' error message not display"
-    Input Text    (//input[@class='form-control'])[10]    Address2
+    Address2    ldfofsdfmsdndsurosdj
     Create a new Account
     ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
     Run Keyword If    'True'!='${Address-3}'    Fail    "Enter all the fields except Address 3 then click Created button, but 'Please enter the Address 3' error message not display"
@@ -1342,19 +1403,8 @@ To Verify User should create an account without uploading Passport Copy LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
-    Country
+    Register data    test    testlf    losdf@fsdf.das    9867654543    logi    logi    lokhjgujmnhjfgre    lokhjgujmnhjfgre    lokhjgujmnhjfgre    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -1374,37 +1424,37 @@ To Verify user should Register an account without Address LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-          FirstName    
-          LastName 
-          Email   
-          Phone no 
-          Confirm Password 
-          Re-Confirm Password  
-          Postal code   
-   Click Element    //input[@id='wvdatepicker']    
-   Select From List By Value    //select[@class='ui-datepicker-year']    1990
-   Select From List By Value    //select[@class='ui-datepicker-month']    6
-   Click Link    xpath=(//a[@href='#'])[30]
+    FirstName    test
+    LastName    testtest
+    Email    lgfdgsdf@fdsfd.dsds
+    Phone no    8764565432
+    Confirm Password    logi
+    Re-Confirm Password    logi
+    Postal code    600099   
+    Click Element    //input[@id='wvdatepicker']    
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
              
-   Create a new Account   
+    Create a new Account   
    
-   ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
+    ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
     
-   Run Keyword If    'True'!='${Address-1}'    Fail    "Enter all the fields except Address 1 then click Created button, but 'Please enter the Address 1' error message not display" 
+    Run Keyword If    'True'!='${Address-1}'    Fail    "Enter all the fields except Address 1 then click Created button, but 'Please enter the Address 1' error message not display" 
 
-   Input Text    (//input[@class='form-control'])[9]   Address1    
-   Create a new Account   
+    Address1    dfsdfsdfdsdfdert
+    Create a new Account   
   
-   ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
     
-   Run Keyword If    'True'!='${Address-2}'    Fail    "Enter all the fields except Address 2 then click Created button, but 'Please enter the Address 2' error message not display" 
+    Run Keyword If    'True'!='${Address-2}'    Fail    "Enter all the fields except Address 2 then click Created button, but 'Please enter the Address 2' error message not display" 
      
-   Input Text    (//input[@class='form-control'])[10]   Address2    
-   Create a new Account   
+    Address2    dfsdfsdfdsdfdert
+    Create a new Account   
    
-   ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
+    ${Address-3}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr2']
     
-   Run Keyword If    'True'!='${Address-3}'    Fail    "Enter all the fields except Address 3 then click Created button, but 'Please enter the Address 3' error message not display"
+    Run Keyword If    'True'!='${Address-3}'    Fail    "Enter all the fields except Address 3 then click Created button, but 'Please enter the Address 3' error message not display"
 
 To Verify user should Register an account without entering Password LP3
     [Tags]    LP-3:Registration Functionallity
@@ -1416,20 +1466,17 @@ To Verify user should Register an account without entering Password LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-          FirstName    
-          LastName 
-          Email   
-          Phone no 
-	  Address1  
-          Address2  
-          Address3
-          Postal code   
-                
-    
-   Click Element    //input[@id='wvdatepicker']    
-   Select From List By Value    //select[@class='ui-datepicker-year']    1990
-   Select From List By Value    //select[@class='ui-datepicker-month']    6
-   Click Link    xpath=(//a[@href='#'])[30]
+    FirstName    test
+    LastName    test
+    Email    ljikjsdf@grt.free
+    Phone no    9856754322
+    Address1    dfkooleresdd
+    Address2    dfkooleresdd
+    Address3    dfkooleresdd
+    Postal code    600099   Click Element    //input[@id='wvdatepicker']    
+    Select From List By Value    //select[@class='ui-datepicker-year']    1990
+    Select From List By Value    //select[@class='ui-datepicker-month']    6
+    Click Link    xpath=(//a[@href='#'])[30]
    
            
    Create a new Account   
@@ -1453,16 +1500,9 @@ To Verify User should Register account without Selecting a country LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    Postal code
-    City
-    State
+    Register data    test    test    kjjg@fttr.fde    9875654321    logi    logi    kijyhhgtefdb    kijyhhgtefdb    kijyhhgtefdb    6098
+    City    kiuyt
+    State    kiuyt
     Create a new Account
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
     Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
@@ -1477,14 +1517,8 @@ To Verify User should Register an account without DOB LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    teste@gtyh.trre    9867654543    logi    logi    kiuhjuurmsdmdfsde    kiuhjuurmsdmegf    kiuhjuurmsdmegf    600099
+    
     Create a new Account
     ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
     Run Keyword If    'True'!='${DOB}'    Fail    "Enter all the fields except select the DOB then click Created button, but 'Please enter the date of birth' alert message not display"
@@ -1499,16 +1533,8 @@ To Verify User should register create a account with invalid phonenumber LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Invalid Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    lhytr@gthj.fre    87656    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -1527,16 +1553,8 @@ To Verify User should register an account with invalid Email Id LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Invalid Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    lhytr@gthj    8765676987    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -1555,16 +1573,8 @@ To Verify User should Create a account with existing registered mail LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Exist Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    logimohan@gmail.com    8765656717    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
+    
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -1583,16 +1593,8 @@ To Verify State and City get autofill after update pincode LP3
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    FirstName
-    LastName
-    Email
-    Phone no
-    Confirm Password
-    Re-Confirm Password
-    Address1
-    Address2
-    Address3
-    valid postal code
+    Register data    test    test    logimohan@gmail.com    8765656717    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
+    
     ${get_city_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
     Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
     ${get_state_val}=    Get Element Attribute    (//input[@class='form-control'])[13]
@@ -1627,6 +1629,7 @@ Total amount should change instant based on inputs in add child sponsorship LP3
     ##Ensure disable child sponsoship total amount val##
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     Run Keyword If    '0'!='${total_val}'    Fail    "Child sponsorship in disable mode but total amount not display '0' val"
+    
 *** Keywords ***
 Jenkins browser launch
     [Arguments]    ${url}
@@ -1965,13 +1968,16 @@ Number of Children
     END
 
 FirstName
-    Input Text    //input[@name='fname']    Test
+    [Arguments]    ${Fname}
+    Input Text    //input[@name='fname']    ${Fname}
 
 LastName
+    [Arguments]    ${Lname}
     Input Text    //input[@name='lname']    Testing
 
 Email
-    Input Text    //input[@name='sigin-email']    test@gmail.com
+    [Arguments]    ${Email}
+    Input Text    //input[@name='sigin-email']    ${Email}
 
 Exist Email
     Input Text    //div[@class='form-group']/input[@name='sigin-email']    logimohan@gmail.com
@@ -1980,37 +1986,46 @@ Invalid Email
     Input Text    //div[@class='form-group']/input[@name='sigin-email']    testil.com
 
 Phone no
-    Input Text    //input[@name='phonenumber']    9940613589
+    [Arguments]    ${Phone}
+    Input Text    //input[@name='phonenumber']    ${Phone}
 
 Invalid Phone no
     Input Text    //input[@name='phonenumber']    9940
 
 Confirm Password
-    Input Text    //input[@name='sigin-pass']    asdf
+    [Arguments]    ${CPassword}
+    Input Text    //input[@name='sigin-pass']    ${CPassword}
 
 Re-Confirm Password
-    Input Text    //input[@name='sigin-conpass']    asdf
+    [Arguments]    ${RCPassword}
+    Input Text    //input[@name='sigin-conpass']    ${RCPassword}
 
 Address1
-    Input Text    //input[@name='address1']    Address1
+    [Arguments]    ${Address-1}
+    Input Text    //input[@name='address1']    ${Address-1}
 
 Address2
-    Input Text    //input[@name='address2']    Address2
+    [Arguments]    ${Address-2}
+    Input Text    //input[@name='address2']    ${Address-2}
 
 Address3
-    Input Text    //input[@name='address3']    Address3
+    [Arguments]    ${Address-3}
+    Input Text    //input[@name='address3']    ${Address-3}
 
 Postal code
-    Input Text    //input[@name='postal-code']    602343
+    [Arguments]    ${Postalcode}
+    Input Text    //input[@name='postal-code']    ${Postalcode}
 
 valid postal code
     Input Text    //input[@name='postal-code']    600099
 
 City
-    Input Text    //input[@name='city']    assdg
+    [Arguments]    ${City}
+    Input Text    //input[@name='city']    ${City}
 
 State
-    Input Text    //input[@name='state']    asdfg
+    [Arguments]    ${state}
+    Input Text    //input[@name='state']    ${state}
 
 Country
     Select From List By Index    //select[@id='country']    2
@@ -2020,3 +2035,16 @@ Create a new Account
 
 Indian Citizen
     Click Element    //label[@id='indiapass']
+
+Register data
+    [Arguments]    ${Fname}    ${Lname}    ${Email}    ${Phone}    ${CPassword}    ${RCPassword}    ${Address1}    ${Address2}    ${Address3}    ${Postalcode}
+    Input Text    //input[@name='fname']    ${Fname}
+    Input Text    //input[@name='lname']    ${Lname}
+    Input Text    //input[@name='sigin-email']    ${Email}
+    Input Text    //input[@name='phonenumber']    ${Phone}
+    Input Text    //input[@name='sigin-pass']    ${CPassword}
+    Input Text    //input[@name='sigin-conpass']    ${RCPassword}
+    Input Text    //input[@name='address1']    ${Address1}
+    Input Text    //input[@name='address2']    ${Address2}
+    Input Text    //input[@name='address3']    ${Address3}
+    Input Text    //input[@name='postal-code']    ${Postalcode}
