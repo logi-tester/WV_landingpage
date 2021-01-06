@@ -7,9 +7,9 @@ Library           String
 
 *** Variables ***
 ${browser}        chrome
-${url_1}        https://prod.worldvision.in/landingPages/child/index.html
-${url_2}        https://prod.worldvision.in/landingPages/child/index-2.html
-${url_3}        https://prod.worldvision.in/landingPages/child/index-3.html
+${url_1}        https://uat.worldvision.in/landingPages/child/index.html
+${url_2}        https://uat.worldvision.in/landingPages/child/index-2.html
+${url_3}        https://uat.worldvision.in/landingPages/child/index-3.html
 @{checkout_payment_list_text}    Powered by CC Avenue    Powered by AXIS BANK    POWERED BY HDFC BANK
 @{SI_payment_list_text}    NET BANKING    Indian credit card    Debit card
 @{checkout_payment_list_ind_passport}    Debit Card/Net banking/Wallets/Amex    Amazon Pay    International credit card    Indian credit cards    Offline Payment
@@ -1859,7 +1859,7 @@ Landing singin
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "Regsitration section not display"
     Click Element    xpath=.//a[@class='show-signin']
-    Input Text    name=email    kumaran@xerago.com
+    Input Text    name=email    aswin.l@live.in
     Input Text    id=pwd    test
     Click Element    xpath=.//a[@class='btn btn-default wvSignIn']
 
