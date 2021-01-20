@@ -92,7 +92,8 @@ To Verify User should login with Invalid credentials LP1
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
     Landing1 singin    jfvfdjf@gds.asdas    123456
-    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
+    Sleep	15s
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
     
 To Verify User should login with email id only LP1
