@@ -1276,14 +1276,16 @@ To Verify User should login with Valid Credentials LP3
     
 To Verify User should login with Invalid credentials LP3
     [Tags]    LP-3:Login Functionallity
+    
     Jenkins browser launch    ${url_3}
     #Local browser launch landingpage    ${url_3}    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
-    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${total_val}    Convert to price    ${total_val}
+    Run Keyword If    '${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'PROCEED TO AUTO DEBIT')]
     Landing1 singin    jfvfdjf@gds.asdas    123456
-    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@class='swal-modal']
+    ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
     Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
 
 To Verify user should login without Credentials LP3
@@ -2078,3 +2080,11 @@ Register data
     Input Text    //input[@name='address2']    ${Address2}
     Input Text    //input[@name='address3']    ${Address3}
     Input Text    //input[@name='postal-code']    ${Postalcode}
+    
+Convert to price
+    [Arguments]    ${price}
+
+    ${price}=    Remove String Using Regexp    ${price}    \\D        
+    ${price}=    Convert To Integer    ${price}
+    
+    [Return]    ${price}    
