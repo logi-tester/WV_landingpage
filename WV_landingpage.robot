@@ -384,14 +384,15 @@ To Verify State and City get autofill after update pincode LP1
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
+    Sleep    10s    
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
     Register data    test    test    logi@gmail.com    9874565432    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
-
     ${get_city_val}=    Get Element Attribute    //input[@name='city']    value
     Run Keyword If    '${city}'!='${get_city_val}'    Fail    "Enter valid pincode but City not auto filled"
     ${get_state_val}=    Get Element Attribute    //input[@name='state']    value
     Run Keyword If    '${state}'!='${get_state_val}'    Fail    "Enter valid pincode but State not auto filled"
+    Edit Pincode auto populate    Chennai    Tamil Nadu    India 
 
 To Verify User should Create a account with existing registered mail LP1
     [Tags]    LP-1:Registration Functionallity
@@ -2090,3 +2091,14 @@ Convert to price
     ${price}=    Convert To Integer    ${price}
     
     [Return]    ${price}    
+    
+Edit Pincode auto populate
+    [Arguments]    ${city}    ${state}    ${country}           
+    
+    Clear Element Text    name=city
+    Input Text    name=city    ${city}
+    
+    Clear Element Text    name=state
+    Input Text    name=state    ${state}
+        
+    Select From List By Label    id=country    ${country}    
