@@ -400,9 +400,11 @@ To Verify User should Create a account with existing registered mail LP1
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
+    Sleep    5s    
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
     Register data    test    test    logimohan@gmail.com    9874565432    logi    logi    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    sfgsgsdgsgsdgsds    600099
+    Select From List By Label    name=aboutwv    Online Ads
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
