@@ -308,10 +308,11 @@ To Verify User should register an Account with Invalid data LP1
     
 To Verify User should register account without Data LP1
     [Tags]    LP-1:Registration Functionality
-    Jenkins browser launch    ${url}
+    Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     
     Select child in landingpage
+    Wait Until Element Is Visible    xpath=//div[@id='accordion']    30s
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
     Create a new Account
@@ -369,6 +370,7 @@ To Verify User should register account without Data LP1
     Create a new Account
     ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
     Run Keyword If    'True'!='${DOB}'    Fail    "select the Country then click Created button, 'Please enter the date of birth' alert message not display"
+    Select From List By Label    name=aboutwv    Online Ads
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -377,7 +379,7 @@ To Verify User should register account without Data LP1
     ${Indian Citizen}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpNationlityErr']
     Run Keyword If    'True'!='${Indian Citizen}'    Fail    "Select the date of birth then click Created button, 'Please select the Nationality' alert message not display"
     Indian Citizen
-    Create a new Account  
+    Create a new Account
     
 To Verify State and City get autofill after update pincode LP1
     [Tags]    LP-1:Registration Functionallity
