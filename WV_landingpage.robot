@@ -687,9 +687,10 @@ To Verify User should register an account with invalid Email Id LP2
     Jenkins browser launch    ${url_2}
     #Local browser launch landingpage    ${url_2}    ${browser}
     Select child in landingpage 2
+    Wait Until Element Is Visible    xpath=//div[@id='accordion']    30s
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    Register data    test    test1    logimohan@gmail    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    Register data    test    test    logimohan@gmail    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
     
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
