@@ -665,10 +665,11 @@ To Verify User should Create a account with existing registered mail LP2
     Jenkins browser launch    ${url_2}
     #Local browser launch landingpage    ${url_2}    ${browser}
     Select child in landingpage 2
+    Sleep    5s    
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    Register data    test    test1    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
-    
+    Register data    test    test    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    Select From List By Label    name=aboutwv    Online Ads
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
