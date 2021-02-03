@@ -464,13 +464,13 @@ To Verify User should Register account without Selecting a country LP1
     [Tags]    LP-1:Registration Functionallity
     Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
-    Select child in landingpage
+    Select child in landingpage       
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'CTA' button Registration section not display"
-    Register data    test    test    lofdf@dfgdf.fdg    9874565432    logi    logi    kldfjgldjfgdfhgg    kldfjgldjfgdfhgg    kldfjgldjfgdfhgg    6008    
-
+    Register data    test    test    lofdf@dfgdf.fdg    9874565432    logi    logi    kldfjgldjfgdfhgg    kldfjgldjfgdfhgg    kldfjgldjfgdfhgg    600123    
     City    kjkjf
     State    jhjhfg
+    Select From List By Index    //select[@id='country']    0 
     Create a new Account
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
     Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
@@ -737,10 +737,10 @@ To Verify User should Register account without Selecting a country LP2
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    Register data    test    test1    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    60099
-    
+    Register data    test    test    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600123    
     City    kifdwe
     State    kifddf
+    Select From List By Index    //select[@id='country']    0
     Create a new Account
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
     Run Keyword If    'True'!='${Country}'    Fail    "Enter all the fields except select the country then click Created button, but 'Please select the country' alert message not display"
@@ -1743,6 +1743,7 @@ Select child in landingpage
     Log To Console    Child amount:${get_val}
     Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='donatenowbtn text-right']/a[contains(.,'SPONSOR NOW')]
+    Sleep	10s
    
 Select child in landingpage1 using SI flow
     Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
@@ -1769,6 +1770,7 @@ Select child in landingpage 2
     Run Keyword If    '${get_def_val}'!='${get_input_val}'    Fail    "Default '800' amount and input displayed amount are different"
     Click Element    xpath=.//label[@for='allowAutoDebit']
     Click Element    xpath=.//div[@class='col-sm-4 textRight pn']//a[contains(.,'SPONSOR NOW')]
+    Sleep	10s
 
 Select child in landingpage2 using SI flow
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
