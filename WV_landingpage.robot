@@ -1147,6 +1147,7 @@ To verify General Donation towards Covid -19 One time donation amount field vali
     ${login_success}=    Run Keyword And Return Status    Element Should Be Visible    id=block-checkoutpaymentprogress
     Run Keyword If    'True'!='${login_success}'    Fail    "Enter valid credentials but not get into payment page"
     
+
 To Verify User should register account without Data LP3
     [Tags]    LP-3:Registration Functionallity
     Jenkins browser launch    ${url_3}
@@ -1158,8 +1159,8 @@ To Verify User should register account without Data LP3
     # Click PROCEED TO AUTO DEBIT button
     Click Element    //a[@class='btn btn-primary proceedtosi']
     # Check Alert should display in all fields
-    # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    # Click create a new Account        
+    Create a new Account
     # Required Message: Please enter your First name
     ${Fname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpfnameErr']
     
@@ -1167,7 +1168,7 @@ To Verify User should register account without Data LP3
     # Enter the FirstName
     Input Text    (//input[@class='form-control alphabet_valid'])[1]    Test
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter your Last name
     ${Lname}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUplnameErr']
     
@@ -1175,7 +1176,7 @@ To Verify User should register account without Data LP3
     # Enter the LastName
     Input Text    (//input[@class='form-control alphabet_valid'])[2]    testt
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter your Email
     ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
     
@@ -1183,7 +1184,7 @@ To Verify User should register account without Data LP3
     # Enter the Email ID
     Input Text    (//input[@type='email'])[2]    test@gmail.com
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter your Phone number
     ${Ph}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
     
@@ -1191,7 +1192,7 @@ To Verify User should register account without Data LP3
     # Enter the Phone number
     Input Text    (//input[@class='form-control'])[7]    9940613589
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the Confirm Password
     ${CPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPassErr']
     
@@ -1199,7 +1200,7 @@ To Verify User should register account without Data LP3
     # Enter the Confirm Password
     Input Text    (//input[@type='password'])[1]    asdf
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the Re-Confirm Password
     ${RCPassword}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpConPassErr']
     
@@ -1207,7 +1208,7 @@ To Verify User should register account without Data LP3
     # Enter the Re-Confirm Password
     Input Text    (//input[@type='password'])[2]    asdf
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the Address 1
     ${Address-1}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr']
     
@@ -1215,7 +1216,7 @@ To Verify User should register account without Data LP3
     # Enter the Address 1
     Input Text    (//input[@class='form-control'])[9]    Address1
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the Address 2
     ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
     
@@ -1223,43 +1224,52 @@ To Verify User should register account without Data LP3
     # Enter the Address 2
     Input Text    (//input[@class='form-control'])[10]    Address2
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
+    
+    ${Address-2}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpaddrErr1']
+    
+    Run Keyword If    'True'!='${Address-2}'    Fail    "Enter the Address 1 after the click Create New Account, 'Address 2' error message not display"
+    # Enter the Address 2
+    Input Text    (//input[@class='form-control'])[11]    address3
+    # Click create a new Account
+    Create a new Account
+
     # Required Message: Please enter the Postalcode
     ${Postalcode}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpPscodeErr']
     
     Run Keyword If    'True'!='${Postalcode}'    Fail    "Enter the Address 2 after the click Create New Account, 'Postalcode' error message not display"
     # Enter the Postalcode
-    Input Text    (//input[@class='form-control'])[11]    656545
+    Input Text    (//input[@class='form-control'])[12]    656545
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the City
     ${City}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCityErr']
     
     Run Keyword If    'True'!='${City}'    Fail    "Enter the Postalcode after the click Create New Account, 'City' error message not display"
     # Enter the City
-    Input Text    (//input[@class='form-control'])[12]    assdg
+    Input Text    (//input[@class='form-control'])[13]    assdg
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the State
     ${state}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpStateErr']
     
     Run Keyword If    'True'!='${state}'    Fail    "Enter the City after the click Create New Account, 'State' error message not display"
     # Enter the State
-    Input Text    (//input[@class='form-control'])[13]    asdfg
+    Input Text    (//input[@class='form-control'])[14]    asdfg
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
     # Required Message: Please enter the Country
     ${Country}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpCountryErr']
     
     Run Keyword If    'True'!='${Country}'    Fail    "Enter the State after the click Create New Account, 'Country' error message not display"
     # Clear the postal Code
-    Clear Element Text    (//input[@class='form-c
-    ontrol'])[11]
+    Clear Element Text    (//input[@class='form-control'])[12]
     # Enter the Postal code
-    Input Text    (//input[@class='form-control'])[11]    600095
+    Input Text    (//input[@class='form-control'])[12]    600095
     Sleep    3s
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
+    
     # Required Message: Please enter the date of birth
     ${DOB}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpDobErr']
     
@@ -1270,7 +1280,9 @@ To Verify User should register account without Data LP3
     Select From List By Value    //select[@class="ui-datepicker-month"]    6
     Click Link    xpath=(//a[@href="#"])[30]
     # Click create a new Account
-    Click Element    //a[@class='btn btn-default wv-signUp']
+    Create a new Account
+
+
     
 To Verify User should login with Valid Credentials LP3
     [Tags]    LP-3:Login Functionallity
