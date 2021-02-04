@@ -1283,18 +1283,20 @@ To Verify User should register account without Data LP3
     Create a new Account
 
 
-    
 To Verify User should login with Valid Credentials LP3
     [Tags]    LP-3:Login Functionallity
-    Jenkins browser launch    ${url_3}
-    #Local browser launch landingpage    ${url_3}    ${browser}
+    
+    Jenkins browser launch    ${url_3}    
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
-    Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    ${total_val}=    Price convertion    ${total_val}
+    Run Keyword If    '${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    Wait Until Element Is Visible    xpath=//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]    30s
+    Click Element    xpath=//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     Landing1 singin    logimohan@gmail.com    logi
-        ${login_success}=    Run Keyword And Return Status    Element Should Be Visible    id=block-checkoutpaymentprogress
-    Run Keyword If    'True'!='${login_success}'    Fail    "Enter valid credentials but not get into login success"
+    ${login_success}=    Run Keyword And Return Status    Element Should Be Visible    id=block-checkoutpaymentprogress
+    Run Keyword If    'True'!='${login_success}'    Fail    "Enter valid credentials but not get into login success"    
+
     
 To Verify User should login with Invalid credentials LP3
     [Tags]    LP-3:Login Functionallity
@@ -1827,10 +1829,12 @@ Select child in landingpage 3
     ${get_val}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']/p/span[1])[2]
     ${get_val}=    Remove String Using Regexp    ${get_val}    \\D        
     ${get_val}=    Convert To Integer    ${get_val}
-    Log To Console    Selected Child name in landing page 3:${get_child_name}
-    Log To Console    Selected Child img src in landing page 3:${get_child_img_src}
-    Log To Console    Selected Child amount in landing page 3:${get_val}
-    Click Element    xpath=.//label[@for='allowAutoDebit']    
+    Log To Console    Selected Child name in landing page 3: ${get_child_name}
+    Log To Console    Selected Child img src in landing page 3: ${get_child_img_src}
+    Log To Console    Selected Child amount in landing page 3: ${get_val}
+    Sleep    5s    
+    #Click Element    xpath=//div[@class='allow-auto-debit']      
+    
     [Return]    ${get_val}
 
 Landing1 singin
@@ -2126,3 +2130,11 @@ Edit Pincode auto populate
     
     Clear Element Text    name=state
     Input Text    name=state    ${state}    
+
+Price convertion
+    [Arguments]    ${total_val}
+    
+    ${total_val}=    Remove String Using Regexp    ${total_val}    \\D        
+    ${total_val}=    Convert To Integer    ${total_val}
+
+    [Return]    ${total_val}
