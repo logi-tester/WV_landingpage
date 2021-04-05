@@ -94,7 +94,7 @@ To Verify User should login with Invalid credentials LP1
     Landing1 singin    jfvfdjf@gds.asdas    123456
     Sleep	15s
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
-    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert not display"
+    Run Keyword If    'True'!='${chck_alert}'    Fail    "Enter invalid credentials, alert msg not display"
     
 To Verify User should login with email id only LP1
     [Tags]    LP-1:Login Functionallity
@@ -774,13 +774,12 @@ To Verify user should Register an account without entering Password LP2
 
 To Verify User should create an account without uploading Passport Copy LP2
     [Tags]    LP-2:Registration Functionallity
-    #Jenkins browser launch    https://uat.worldvision.in/landingPages/child/index-2.html
-    Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    https://uat.worldvision.in/landingPages/child/index-2.html    ${browser}
     Select child in landingpage 2
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    Register data    test    test    logimohvcx@gmail.com    9856765768    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
-    
+    Register data    test    test    logimohvcx@gmail.com    9856765768    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099   
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -1284,8 +1283,7 @@ To Verify User should register account without Data LP3
 
 
 To Verify User should login with Valid Credentials LP3
-    [Tags]    LP-3:Login Functionallity
-    
+    [Tags]    LP-3:Login Functionallity   
     Jenkins browser launch    ${url_3}    
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
@@ -1334,9 +1332,11 @@ To Verify User should login with email id only LP3
     [Tags]    LP-3:Login Functionallity
     Jenkins browser launch    ${url_3}
     #Local browser launch landingpage    ${url_3}    ${browser}
-    ${get_sel_child_val}=    Select child in landingpage 3
-    ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    ${get_sel_child_val}=    Select child in landingpage 3   
+    ${total_val}    Get Text    xpath=.//span[@id='total']/b
+    ${actual_total_val}    Remove symbol    ${total_val}    ,    
+    Log To Console    Total amount: ${actual_total_val} 
+    Run Keyword If    '${actual_total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
     Landing1 singin with email    jfvfdjf@gds.asdas
     ${chck_alert}=    Run Keyword And Return Status    Element Should Be Visible    id=signInPassErr
@@ -1348,8 +1348,10 @@ To Verify user should login with Only Password LP3
     #Local browser launch landingpage    ${url_3}    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    ${actual_total_val}    Remove symbol    ${total_val}    ,   
+    Run Keyword If    '${actual_total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Sleep    4s
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     Landing1 singin with password    jfvfdjf@gds.asdas
@@ -1749,9 +1751,9 @@ Select child in landingpage
     Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
     Click Element    xpath=(.//div[@class='owl-item active'])[1]
     Click Element    xpath=(.//div[@id='mqhy']/div)[2]
-    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[2]//label/div[@class='sliderNameTag']/b
-    ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[2]//label/img    src
-    ${get_val}=    Get Element Attribute    xpath=(.//div[@id='mqhy']/div)[2]/input    value
+    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[1]//label/div[@class='sliderNameTag']/b
+    ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[1]//label/img    src
+    ${get_val}=    Get Element Attribute    xpath=(.//div[@id='mqhy']/div)[1]/input    value
     Log To Console    Child name:${get_child_name}
     Log To Console    Child img src:${get_child_img_chsrc}
     Log To Console    Child amount:${get_val}
@@ -1763,9 +1765,9 @@ Select child in landingpage1 using SI flow
     Scroll Element Into View    xpath=.//div[@class='donatenow supportchildActive']
     Click Element    xpath=(.//div[@class='owl-item active'])[1]
     Click Element    xpath=(.//div[@id='mqhy']/div)[2]
-    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[2]//label/div[@class='sliderNameTag']/b
-    ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[2]//label/img    src
-    ${get_val}=    Get Element Attribute    xpath=(.//div[@id='mqhy']/div)[2]/input    value
+    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active'])[1]//label/div[@class='sliderNameTag']/b
+    ${get_child_img_chsrc}=    Get Element Attribute    xpath=(.//div[@class='owl-item active'])[1]//label/img    src
+    ${get_val}=    Get Element Attribute    xpath=(.//div[@id='mqhy']/div)[1]/input    value
     Log To Console    Child name:${get_child_name}
     Log To Console    Child img src:${get_child_img_chsrc}
     Log To Console    Child amount:${get_val}
@@ -1774,8 +1776,8 @@ Select child in landingpage1 using SI flow
 Select child in landingpage 2
     Scroll Element Into View    xpath=.//div[@class='owl-stage']
     Click Element    xpath=(.//div[@class='owl-item active']//div[@class='pic'])[1]
-    ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[2]    src
-    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[2]
+    ${get_child_img_src}=    Get Element Attribute    xpath=(.//div[@class='owl-item active']//div[@class='pic']/img)[1]    src
+    ${get_child_name}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='select-kid-dec']/p/strong)[1]
     ${get_def_val}=    Get Element Attribute    xpath=.//span[@class='irs-grid-text js-grid-text-0']/span    value
     Log To Console    Selected Child name in landing page 2:${get_child_name}
     Log To Console    Selected Child img src in landing page 2:${get_child_img_src}
@@ -1827,15 +1829,14 @@ Select child in landingpage 3
     ${get_child_img_src}=    Get Element Attribute    xpath=.//div[@class='owl-item active']//img    src
     ${get_child_name}=    Get Text    xpath=.//div[@class='owl-item active']//div[@class='sliderNameTag']/h4
     ${get_val}=    Get Text    xpath=(.//div[@class='owl-item active']//div[@class='stepwizard-step']/p/span[1])[2]
-    ${get_val}=    Remove String Using Regexp    ${get_val}    \\D        
-    ${get_val}=    Convert To Integer    ${get_val}
+    ${final_get_val}=    Remove String Using Regexp    ${get_val}    \\D        
     Log To Console    Selected Child name in landing page 3: ${get_child_name}
     Log To Console    Selected Child img src in landing page 3: ${get_child_img_src}
-    Log To Console    Selected Child amount in landing page 3: ${get_val}
+    Log To Console    Selected Child amount in landing page 3: ${final_get_val}
     Sleep    5s    
     #Click Element    xpath=//div[@class='allow-auto-debit']      
     
-    [Return]    ${get_val}
+    [Return]    ${final_get_val}
 
 Landing1 singin
     [Arguments]    ${username}    ${password}
