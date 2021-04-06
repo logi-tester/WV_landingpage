@@ -666,19 +666,20 @@ To Verify State and City get autofill after update pincode LP2
 
 To Verify User should Create a account with existing registered mail LP2
     [Tags]    LP-2:Registration Functionallity
-    Jenkins browser launch    ${url_2}
-    #Local browser launch landingpage    ${url_2}    ${browser}
+    #Jenkins browser launch    ${url_2}
+    Local browser launch landingpage    ${url_2}    ${browser}
     Select child in landingpage 2
     Sleep    5s    
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
-    Register data    test    test    logimohan@gmail.com    9856783421    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
+    Register data    test    test    logimohan@gmail.com    8975643423    logi    logi    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    sdfgdfggdfjkkjgxf    600099
     Select From List By Label    name=aboutwv    Online Ads
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
     Click Link    xpath=(//a[@href='#'])[30]
     Create a new Account
+    Sleep    4s
     ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@class='swal-text']
     Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and Enter registered email then click Created button, but 'The Mobile Number or Username already taken', alert message not display"
 
@@ -1612,7 +1613,7 @@ To Verify User should register an account with invalid Email Id LP3
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     Register data    test    test    lhytr@gthj    8765676987    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
-    
+        
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
@@ -1623,21 +1624,24 @@ To Verify User should register an account with invalid Email Id LP3
 
 To Verify User should Create a account with existing registered mail LP3
     [Tags]    LP-3:Registration Functionallity
-    Jenkins browser launch    ${url_3}
-    #Local browser launch landingpage    ${url_3}    ${browser}
+    #Jenkins browser launch    ${url_3}
+    Local browser launch landingpage    ${url_3}    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    ${final_val}    Remove symbol    ${total_val}    ,
+    Run Keyword If    '${final_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Sleep    4s
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     Register data    test    test    logimohan@gmail.com    8765656717    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
-    
+    Select From List By Label    sel1    Tele-Caller
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
     Click Link    xpath=(//a[@href='#'])[30]
     Create a new Account
+    Sleep    4s
     ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@class='swal-text']
     Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and Enter registered email then click Created button, but 'The Mobile Number or Username already taken', alert message not display"
 
