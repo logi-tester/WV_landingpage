@@ -225,7 +225,7 @@ To Verify user should Register an account without Address LP1
     
 To Verify User should register an Account with Invalid data LP1
     [Tags]    LP-1:Registration Functionality
-    Jenkins browser launch    ${url}
+    Jenkins browser launch    ${url_1}
     #Local browser launch landingpage    ${url_1}    ${browser}
     Select child in landingpage
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
@@ -1624,8 +1624,8 @@ To Verify User should register an account with invalid Email Id LP3
 
 To Verify User should Create a account with existing registered mail LP3
     [Tags]    LP-3:Registration Functionallity
-    #Jenkins browser launch    ${url_3}
-    Local browser launch landingpage    ${url_3}    ${browser}
+    Jenkins browser launch    ${url_3}
+    #Local browser launch landingpage    ${url_3}    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
     ${final_val}    Remove symbol    ${total_val}    ,
