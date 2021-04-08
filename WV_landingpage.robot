@@ -666,8 +666,8 @@ To Verify State and City get autofill after update pincode LP2
 
 To Verify User should Create a account with existing registered mail LP2
     [Tags]    LP-2:Registration Functionallity
-    #Jenkins browser launch    ${url_2}
-    Local browser launch landingpage    ${url_2}    ${browser}
+    Jenkins browser launch    ${url_2}
+    #Local browser launch landingpage    ${url_2}    ${browser}
     Select child in landingpage 2
     Sleep    5s    
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
@@ -1608,17 +1608,22 @@ To Verify User should register an account with invalid Email Id LP3
     #Local browser launch landingpage    ${url_3}    ${browser}
     ${get_sel_child_val}=    Select child in landingpage 3
     ${total_val}=    Get Text    xpath=.//span[@id='total']/b
-    Run Keyword If    '₹${total_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
+    ${final_val}    Remove symbol    ${total_val}    ,
+    Log To Console    Total Val:${final_val}    
+    Run Keyword If    '${final_val}'!='${get_sel_child_val}'    Fail    "Total display amount and selected child amount are not equal"
     Click Element    xpath=.//div[@class='donatenowbtn']/a[contains(.,'DONATE NOW')]
+    Sleep    4s    
     ${display_reg}=    Run Keyword And Return Status    Element Should Be Visible    xpath=.//div[@id='accordion']
     Run Keyword If    'True'!='${display_reg}'    Fail    "When click 'Donate Now' button Registration section not display"
     Register data    test    test    lhytr@gthj    8765676987    logi    logi    lojdufjgfngf    lojdufjgfngffdg    lojdufjgfngfsd    600099
-        
+    Select From List By Label    name=aboutwv    Online Ads        
     Click Element    //input[@id='wvdatepicker']
     Select From List By Value    //select[@class='ui-datepicker-year']    1990
     Select From List By Value    //select[@class='ui-datepicker-month']    6
     Click Link    xpath=(//a[@href='#'])[30]
     Create a new Account
+    Capture Page Screenshot    
+    Sleep    5s    
     ${Email}=    Run Keyword And Return Status    Element Should Be Visible    xpath=//div[@id='signUpEmailErr']
     Run Keyword If    'True'!='${Email}'    Fail    "Enter all the fields and enter invalid Email id then click Created button, but 'Please enter a valid Email' alert message not display"
 
